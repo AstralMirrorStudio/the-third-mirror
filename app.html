@@ -444,12 +444,12 @@ function renderMirrorCards(){
   document.getElementById('mirror-cards').innerHTML=titles.map((title,i)=>`
     <div style="background:var(--card);border:1px solid ${colors[i]}59;border-radius:16px;padding:18px;margin-bottom:12px">
       <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
-        <div style="width:44px;height:44px;border-radius:50%;background:${colors[i]}22;border:1px solid ${colors[i]}88;display:flex;align-items:center;justify-content:center;font-size:22px;color:${colors[i]}">${icons[i]}</div>
-        <div><div style="font-size:16px;color:${colors[i]};font-weight:500;letter-spacing:1px">${title}</div></div>
-      </div>
-      <div style="background:${colors[i]}18;border:1px solid ${colors[i]}33;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:13px;color:${colors[i]}ee;font-style:italic;line-height:1.6">❝ ${hk[i]}</div>
-      <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.8">${bd[i]}</div>
-    </div>`).join('');
+        <div style="width:44px;height:44px;border-radius:50%;background:${colors[i]}22;border:1px solid ${colors[i]}88;display:flex;align-items:center;justify-content:center;font-size:22px;color:${colors[i]}">${icons[i]}<\/div>
+        <div><div style="font-size:16px;color:${colors[i]};font-weight:500;letter-spacing:1px">${title}<\/div><\/div>
+      <\/div>
+      <div style="background:${colors[i]}18;border:1px solid ${colors[i]}33;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:13px;color:${colors[i]}ee;font-style:italic;line-height:1.6">❝ ${hk[i]}<\/div>
+      <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.8">${bd[i]}<\/div>
+    <\/div>`).join('');
 }
 
 // ── Mirror Animation ──
@@ -492,36 +492,36 @@ function buildPersonSection(prefix,isPartner){
   return `
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
       <div>
-        <div class="lbl">📅 ${t('birthDate')}</div>
+        <div class="lbl">📅 ${t('birthDate')}<\/div>
         <input type="date" class="ibox" id="${dateId}" value="${dateObj.y}-${String(dateObj.m).padStart(2,'0')}-${String(dateObj.d).padStart(2,'0')}" onchange="setDate('${prefix}',this.value)">
-      </div>
+      <\/div>
       <div>
-        <div class="lbl">🕐 ${t('birthTime')}</div>
+        <div class="lbl">🕐 ${t('birthTime')}<\/div>
         <input type="time" class="ibox" id="${timeId}" value="${String(timeObj.h).padStart(2,'0')}:${String(timeObj.min).padStart(2,'0')}" onchange="setTime('${prefix}',this.value)">
-        <div class="note">${t('timeNote')}</div>
-      </div>
-    </div>
-    <div class="lbl">🌐 ${t('country')}</div>
+        <div class="note">${t('timeNote')}<\/div>
+      <\/div>
+    <\/div>
+    <div class="lbl">🌐 ${t('country')}<\/div>
     <select class="ibox" id="${countryId}" onchange="setCountry('${prefix}',this.value)">
       ${countries.map((c,i)=>`<option value="${i}" ${i===cIdx?'selected':''}>${c}</option>`).join('')}
-    </select>
+    <\/select>
     ${isJapan?`
       <div class="lbl">📍 ${t('prefecture')}</div>
       <select class="ibox" id="${prefId}" onchange="setPref('${prefix}',this.value)">
         <option value="-1">${t('selectPref')}</option>
-        ${PREFS.map((p,i)=>`<option value="${i}" ${i===pIdx?'selected':''}>${p}</option>`).join('')}
+        ${PREFS.map((p,i)=>`<option value="${i}" ${i===pIdx?'selected':''}>${p}<\/option>`).join('')}
       </select>
       ${pIdx>=0?`
-        <div class="lbl">🏙 ${t('city')}</div>
+        <div class="lbl">🏙 ${t('city')}<\/div>
         <select class="ibox" id="${cityId}" onchange="setCity('${prefix}',this.value)">
-          <option value="-1">${t('selectCity')}</option>
+          <option value="-1">${t('selectCity')}<\/option>
           ${(CITIES[PREFS[pIdx]]||'').split(',').filter(Boolean).map((c,i)=>`<option value="${i}" ${i===cityIdx?'selected':''}>${c}</option>`).join('')}
-        </select>`:''}`
+        <\/select>`:''}`
     :worldCities.length?`
       <div class="lbl">🏙 ${t('city')}</div>
       <select class="ibox" id="${cityId}" onchange="setCity('${prefix}',this.value)">
         <option value="-1">${t('selectCity2')}</option>
-        ${worldCities.map((c,i)=>`<option value="${i}" ${i===cityIdx?'selected':''}>${c}</option>`).join('')}
+        ${worldCities.map((c,i)=>`<option value="${i}" ${i===cityIdx?'selected':''}>${c}<\/option>`).join('')}
       </select>`:''}
   `;
 }
@@ -569,33 +569,33 @@ function renderSelfResult(){
   const idxs=[aSi,aMi,aAi];
   let html=`
     <div class="rcard">
-      <div class="rlbl">${labels[0]}</div>
+      <div class="rlbl">${labels[0]}<\/div>
       <div class="rsign">
-        <span style="font-size:32px;color:${colors[0]}">${icons[0]}</span>
-        <div><div style="font-size:11px;color:rgba(255,255,255,.38)">${types[0]}</div>
-        <div style="display:flex;align-items:center;gap:6px"><span style="font-size:18px;color:${colors[0]}">${SYMS[idxs[0]]}</span><span style="font-size:24px;color:${colors[0]};font-weight:300">${signName(idxs[0])}</span></div></div>
-      </div>
-      <div class="rtext">${getReading(idxs[0])}</div>
-    </div>`;
+        <span style="font-size:32px;color:${colors[0]}">${icons[0]}<\/span>
+        <div><div style="font-size:11px;color:rgba(255,255,255,.38)">${types[0]}<\/div>
+        <div style="display:flex;align-items:center;gap:6px"><span style="font-size:18px;color:${colors[0]}">${SYMS[idxs[0]]}<\/span><span style="font-size:24px;color:${colors[0]};font-weight:300">${signName(idxs[0])}<\/span><\/div><\/div>
+      <\/div>
+      <div class="rtext">${getReading(idxs[0])}<\/div>
+    <\/div>`;
   if(!unlocked){
-    html+=`<div style="text-align:center;font-size:12px;color:rgba(255,255,255,.5);padding:8px 0 12px">${t('adNote').replace(/\\n/g,'<br>')}</div>
-    <button class="adbtn" onclick="simulateAd()">${t('watchAd')}</button>`;
+    html+=`<div style="text-align:center;font-size:12px;color:rgba(255,255,255,.5);padding:8px 0 12px">${t('adNote').replace(/\\n/g,'<br>')}<\/div>
+    <button class="adbtn" onclick="simulateAd()">${t('watchAd')}<\/button>`;
   } else {
     for(let i=1;i<3;i++){
-      html+=`<div class="rcard"><div class="rlbl">${labels[i]}</div>
-        <div class="rsign"><span style="font-size:32px;color:${colors[i]}">${icons[i]}</span>
-        <div><div style="font-size:11px;color:rgba(255,255,255,.38)">${types[i]}</div>
-        <div style="display:flex;align-items:center;gap:6px"><span style="font-size:18px;color:${colors[i]}">${SYMS[idxs[i]]}</span><span style="font-size:24px;color:${colors[i]};font-weight:300">${signName(idxs[i])}</span></div></div></div>
-        <div class="rtext">${getReading(idxs[i])}</div></div>`;
+      html+=`<div class="rcard"><div class="rlbl">${labels[i]}<\/div>
+        <div class="rsign"><span style="font-size:32px;color:${colors[i]}">${icons[i]}<\/span>
+        <div><div style="font-size:11px;color:rgba(255,255,255,.38)">${types[i]}<\/div>
+        <div style="display:flex;align-items:center;gap:6px"><span style="font-size:18px;color:${colors[i]}">${SYMS[idxs[i]]}<\/span><span style="font-size:24px;color:${colors[i]};font-weight:300">${signName(idxs[i])}<\/span><\/div><\/div><\/div>
+        <div class="rtext">${getReading(idxs[i])}<\/div><\/div>`;
     }
     html+=`<div class="intcard">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
-        <span style="color:var(--gold);font-size:14px">✦</span>
-        <span style="font-size:14px;color:var(--gold);letter-spacing:1px">${t('intTitle')}</span>
-      </div>
-      <div style="height:.5px;background:var(--glass);margin-bottom:12px"></div>
-      <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.9">${integratedMsg(aSi,aMi,aAi).replace(/\\n/g,'<br><br>')}</div>
-    </div>`;
+        <span style="color:var(--gold);font-size:14px">✦<\/span>
+        <span style="font-size:14px;color:var(--gold);letter-spacing:1px">${t('intTitle')}<\/span>
+      <\/div>
+      <div style="height:.5px;background:var(--glass);margin-bottom:12px"><\/div>
+      <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.9">${integratedMsg(aSi,aMi,aAi).replace(/\\n/g,'<br><br>')}<\/div>
+    <\/div>`;
     html+=renderHoroscope();
     html+=renderTodaysSky();
   }
@@ -610,45 +610,45 @@ function renderCompatResult(){
     html+=`<div style="display:flex;gap:10px;margin-bottom:16px">
       ${personCard(t('you'),'#C9A84C')}
       <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 4px">
-        <div style="font-size:28px;color:var(--gold)">${mode===1?'∞':'♡'}</div>
-        <div style="font-size:10px;color:var(--gold-dim)">${mode===1?'soul':'love'}</div>
-      </div>
+        <div style="font-size:28px;color:var(--gold)">${mode===1?'∞':'♡'}<\/div>
+        <div style="font-size:10px;color:var(--gold-dim)">${mode===1?'soul':'love'}<\/div>
+      <\/div>
       ${personCard(t('partner'),'#87CEEB')}
-    </div>
-    <div style="text-align:center;font-size:12px;color:rgba(255,255,255,.5);padding:8px 0 12px">${t('adCompatNote')}</div>
-    <button class="adbtn" onclick="simulateAd()">${t('watchAdCompat')}</button>`;
+    <\/div>
+    <div style="text-align:center;font-size:12px;color:rgba(255,255,255,.5);padding:8px 0 12px">${t('adCompatNote')}<\/div>
+    <button class="adbtn" onclick="simulateAd()">${t('watchAdCompat')}<\/button>`;
   } else {
     html+=`<div style="display:flex;gap:10px;margin-bottom:16px">
       ${personCard(t('you'),'#C9A84C')}
       <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 4px">
-        <div style="font-size:28px;color:var(--gold)">${mode===1?'∞':'♡'}</div>
-        <div style="font-size:10px;color:var(--gold-dim)">${mode===1?'soul':'love'}</div>
-      </div>
+        <div style="font-size:28px;color:var(--gold)">${mode===1?'∞':'♡'}<\/div>
+        <div style="font-size:10px;color:var(--gold-dim)">${mode===1?'soul':'love'}<\/div>
+      <\/div>
       ${personCard(t('partner'),'#87CEEB')}
-    </div>`;
+    <\/div>`;
     html+=`<div class="card"><div class="compat-gauge">
-      <div style="font-size:12px;color:rgba(255,255,255,.54);letter-spacing:2px;margin-bottom:16px">${t('resonance')}</div>
-      <canvas id="gaugeCanvas" width="160" height="160" style="display:block;margin:0 auto"></canvas>
-      <div class="score-big">${cp.total}%</div>
-      <div style="font-size:13px;color:var(--gold);letter-spacing:1px;margin-top:4px">${compatLabel(cp.total)}</div>
-    </div></div>`;
+      <div style="font-size:12px;color:rgba(255,255,255,.54);letter-spacing:2px;margin-bottom:16px">${t('resonance')}<\/div>
+      <canvas id="gaugeCanvas" width="160" height="160" style="display:block;margin:0 auto"><\/canvas>
+      <div class="score-big">${cp.total}%<\/div>
+      <div style="font-size:13px;color:var(--gold);letter-spacing:1px;margin-top:4px">${compatLabel(cp.total)}<\/div>
+    <\/div><\/div>`;
     html+=`<div class="card">
       ${scoreBar(t('sunH'),cp.sun,'☀')}
       ${scoreBar(t('moonR'),cp.moon,'☽')}
       ${scoreBar(t('elemA'),cp.elem,'✦')}
-    </div>`;
+    <\/div>`;
     const msgColor=mode===1?'var(--gold)':'#FF87A0';
     const msgBorder=mode===1?'rgba(201,168,76,.4)':'rgba(255,135,160,.4)';
     const msgTitle=mode===1?t('soulMsg'):t('loveMsg');
     const msgIcon=mode===1?'∞':'♡';
     html+=`<div style="background:var(--card);border:1px solid ${msgBorder};border-radius:14px;padding:18px;margin-bottom:14px">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-        <span style="color:${msgColor};font-size:16px">${msgIcon}</span>
-        <span style="font-size:13px;color:${msgColor};letter-spacing:1px;font-weight:600">${msgTitle}</span>
-      </div>
-      <div style="height:.5px;background:var(--glass);margin-bottom:10px"></div>
-      <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.9">${soulmateMsg(aSi,aMi,bSi,bMi,mode===2).replace(/\\n/g,'<br><br>')}</div>
-    </div>`;
+        <span style="color:${msgColor};font-size:16px">${msgIcon}<\/span>
+        <span style="font-size:13px;color:${msgColor};letter-spacing:1px;font-weight:600">${msgTitle}<\/span>
+      <\/div>
+      <div style="height:.5px;background:var(--glass);margin-bottom:10px"><\/div>
+      <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.9">${soulmateMsg(aSi,aMi,bSi,bMi,mode===2).replace(/\\n/g,'<br><br>')}<\/div>
+    <\/div>`;
   }
   document.getElementById('result-body').innerHTML=html;
   if(unlocked)drawGauge(cp.total);
@@ -658,17 +658,17 @@ function personCard(label,color){
   const mi=label===t('you')?aMi:bMi;
   const ai=label===t('you')?aAi:bAi;
   return `<div class="pcard" style="flex:1;border-color:${color}66">
-    <div style="font-size:11px;color:${color}aa;letter-spacing:1px;text-align:center;margin-bottom:8px">${label}</div>
-    <div class="prow"><span style="font-size:13px">☀</span><span style="font-size:11px;color:${color}">${SYMS[si]}</span><span style="font-size:11px;color:rgba(255,255,255,.7)">${signName(si)}</span></div>
-    <div class="prow"><span style="font-size:13px">☽</span><span style="font-size:11px;color:${color}">${SYMS[mi]}</span><span style="font-size:11px;color:rgba(255,255,255,.7)">${signName(mi)}</span></div>
-    <div class="prow"><span style="font-size:13px">↑</span><span style="font-size:11px;color:${color}">${SYMS[ai]}</span><span style="font-size:11px;color:rgba(255,255,255,.7)">${signName(ai)}</span></div>
-  </div>`;
+    <div style="font-size:11px;color:${color}aa;letter-spacing:1px;text-align:center;margin-bottom:8px">${label}<\/div>
+    <div class="prow"><span style="font-size:13px">☀<\/span><span style="font-size:11px;color:${color}">${SYMS[si]}<\/span><span style="font-size:11px;color:rgba(255,255,255,.7)">${signName(si)}<\/span><\/div>
+    <div class="prow"><span style="font-size:13px">☽<\/span><span style="font-size:11px;color:${color}">${SYMS[mi]}<\/span><span style="font-size:11px;color:rgba(255,255,255,.7)">${signName(mi)}<\/span><\/div>
+    <div class="prow"><span style="font-size:13px">↑<\/span><span style="font-size:11px;color:${color}">${SYMS[ai]}<\/span><span style="font-size:11px;color:rgba(255,255,255,.7)">${signName(ai)}<\/span><\/div>
+  <\/div>`;
 }
 function scoreBar(label,score,icon){
   return `<div style="margin-bottom:10px">
-    <div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.6);margin-bottom:6px"><span>${icon} ${label}</span><span>${score}%</span></div>
-    <div class="progress-bar"><div class="progress-fill" style="width:${score}%"></div></div>
-  </div>`;
+    <div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.6);margin-bottom:6px"><span>${icon} ${label}<\/span><span>${score}%<\/span><\/div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${score}%"><\/div><\/div>
+  <\/div>`;
 }
 
 // ── Horoscope Wheel ──
@@ -679,19 +679,19 @@ function renderHoroscope(){
     [['🔥','Fire','Aries · Leo · Sagittarius','Passion · Action · Creativity','#CC4444'],['🌿','Earth','Taurus · Virgo · Capricorn','Stability · Honesty · Patience','#44AA44'],['🌬','Air','Gemini · Libra · Aquarius','Intellect · Communication · Freedom','#4488CC'],['🌊','Water','Cancer · Scorpio · Pisces','Emotion · Intuition · Empathy','#334488']]:
     [['🔥','Fuego','Aries · Leo · Sagitario','Pasión · Acción · Creatividad','#CC4444'],['🌿','Tierra','Tauro · Virgo · Capricornio','Estabilidad · Honestidad · Paciencia','#44AA44'],['🌬','Aire','Géminis · Libra · Acuario','Intelecto · Comunicación · Libertad','#4488CC'],['🌊','Agua','Cáncer · Escorpio · Piscis','Emoción · Intuición · Empatía','#334488']];
   return `
-  <div style="height:.5px;background:var(--gold-dim);margin:24px 0"></div>
+  <div style="height:.5px;background:var(--gold-dim);margin:24px 0"><\/div>
   <div style="text-align:center;margin-bottom:16px">
-    <div style="font-size:18px;color:var(--gold);letter-spacing:2px">${t('birthChart')}</div>
-    <div style="font-size:11px;color:rgba(255,255,255,.38)">${t('natalChart')}</div>
-  </div>
-  <canvas id="wheelCanvas" width="300" height="300" style="display:block;margin:0 auto"></canvas>
+    <div style="font-size:18px;color:var(--gold);letter-spacing:2px">${t('birthChart')}<\/div>
+    <div style="font-size:11px;color:rgba(255,255,255,.38)">${t('natalChart')}<\/div>
+  <\/div>
+  <canvas id="wheelCanvas" width="300" height="300" style="display:block;margin:0 auto"><\/canvas>
   <div class="wi" style="margin-top:16px">
     ${wiItem('☀',t('sun'),aSi,'#FFD700')}
     ${wiItem('☽',t('moon'),aMi,'#87CEEB')}
     ${wiItem('↑','ASC',aAi,'#98FB98')}
-  </div>
+  <\/div>
   <div style="background:var(--card);border:1px solid var(--glass);border-radius:12px;padding:14px;margin-bottom:14px">
-    <div style="font-size:12px;color:var(--gold);margin-bottom:10px">◆ ${t('elemTitle')}</div>
+    <div style="font-size:12px;color:var(--gold);margin-bottom:10px">◆ ${t('elemTitle')}<\/div>
     ${elemData.map(e=>`<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px">
       <div style="width:12px;height:12px;background:${e[4]};border-radius:3px;flex-shrink:0;margin-top:2px"></div>
       <span style="font-size:14px">${e[0]}</span>
@@ -701,14 +701,14 @@ function renderHoroscope(){
         <div style="color:rgba(255,255,255,.38)">${e[3]}</div>
       </div>
     </div>`).join('')}
-  </div>`;
+  <\/div>`;
 }
 function wiItem(sym,label,idx,col){
   return `<div class="wi-i">
-    <div style="font-size:16px;color:${col}">${sym}</div>
-    <div style="font-size:10px;color:rgba(255,255,255,.38);margin:2px 0">${label}</div>
-    <div style="color:${col};font-size:12px">${SYMS[idx]} ${(idx*30+15)%30}°</div>
-  </div>`;
+    <div style="font-size:16px;color:${col}">${sym}<\/div>
+    <div style="font-size:10px;color:rgba(255,255,255,.38);margin:2px 0">${label}<\/div>
+    <div style="color:${col};font-size:12px">${SYMS[idx]} ${(idx*30+15)%30}°<\/div>
+  <\/div>`;
 }
 function drawWheel(){
   const c=document.getElementById('wheelCanvas');if(!c)return;
@@ -793,38 +793,38 @@ function renderTodaysSky(){
   const pRows=planets.map(p=>{
     const sIdx=Math.floor(p.lon/30)%12;const deg=Math.floor(p.lon)%30;
     const pName=lang==='ja'?p.ja:lang==='en'?p.en:p.es;
-    return `<div class="pcrow"><span style="font-size:16px;width:24px">${p.sym}</span><span style="width:44px;font-size:12px">${pName}</span><span style="font-size:13px;color:var(--gold)">${SYMS[sIdx]}</span><span style="font-size:12px;color:rgba(255,255,255,.6);margin-left:4px">${signName(sIdx)}</span><span style="font-size:11px;color:rgba(255,255,255,.38);margin-left:auto">${deg}°</span></div>`;
+    return `<div class="pcrow"><span style="font-size:16px;width:24px">${p.sym}<\/span><span style="width:44px;font-size:12px">${pName}<\/span><span style="font-size:13px;color:var(--gold)">${SYMS[sIdx]}<\/span><span style="font-size:12px;color:rgba(255,255,255,.6);margin-left:4px">${signName(sIdx)}<\/span><span style="font-size:11px;color:rgba(255,255,255,.38);margin-left:auto">${deg}°<\/span><\/div>`;
   }).join('');
   const aspRows=asps.slice(0,5).map(asp=>{
     const p=asp.p;const pLon=p.lon;const pSIdx=Math.floor(pLon/30)%12;
     const pName=lang==='ja'?p.ja:lang==='en'?p.en:p.es;
     const col=asp.isH?'#96FFB4':'#FF9664';
     return `<div class="asprow" style="color:rgba(255,255,255,.7)">
-      ${p.sym} ${pName} ${signName(pSIdx)} <span style="color:${col}">${asp.aSym} ${asp.aName}</span> ${asp.n.sym} ${asp.n.name}
-      <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:3px">${asp.isH?(lang==='ja'?'星のエネルギーがあなたを後押ししています。':lang==='en'?'The stars are working in your favor.':'Las estrellas están de tu lado.'):(lang==='ja'?'緊張が変化のきっかけになります。':lang==='en'?'Tension becomes opportunity for growth.':'La tensión se convierte en oportunidad.')}</div>
-    </div>`;
+      ${p.sym} ${pName} ${signName(pSIdx)} <span style="color:${col}">${asp.aSym} ${asp.aName}<\/span> ${asp.n.sym} ${asp.n.name}
+      <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:3px">${asp.isH?(lang==='ja'?'星のエネルギーがあなたを後押ししています。':lang==='en'?'The stars are working in your favor.':'Las estrellas están de tu lado.'):(lang==='ja'?'緊張が変化のきっかけになります。':lang==='en'?'Tension becomes opportunity for growth.':'La tensión se convierte en oportunidad.')}<\/div>
+    <\/div>`;
   }).join('');
   return `
-  <div style="height:.5px;background:var(--gold-dim);margin:24px 0"></div>
+  <div style="height:.5px;background:var(--gold-dim);margin:24px 0"><\/div>
   <div style="text-align:center;margin-bottom:16px">
-    <div style="font-size:17px;color:var(--gold);letter-spacing:3px">${t('todaysSky')}</div>
-    <div style="font-size:10px;color:rgba(255,255,255,.38)">${t('todaysSkyDesc')}</div>
-  </div>
+    <div style="font-size:17px;color:var(--gold);letter-spacing:3px">${t('todaysSky')}<\/div>
+    <div style="font-size:10px;color:rgba(255,255,255,.38)">${t('todaysSkyDesc')}<\/div>
+  <\/div>
   <div style="background:var(--card);border:1px solid var(--glass);border-radius:12px;padding:14px;margin-bottom:12px">
-    <div style="font-size:10px;color:rgba(255,255,255,.38);margin-bottom:8px">${t('todaysPlanets')}</div>
+    <div style="font-size:10px;color:rgba(255,255,255,.38);margin-bottom:8px">${t('todaysPlanets')}<\/div>
     ${pRows}
-  </div>
+  <\/div>
   ${asps.length?`<div style="background:var(--card);border:1px solid var(--glass);border-radius:12px;padding:14px;margin-bottom:12px">
     <div style="font-size:10px;color:rgba(255,255,255,.38);margin-bottom:8px">${t('influence')}</div>
     ${aspRows}
   </div>`:''}
   <div class="energy-card">
     <div style="display:flex;gap:12px;align-items:flex-start">
-      <span style="font-size:22px">🌙</span>
-      <div><div style="font-size:11px;color:var(--gold);font-weight:600;margin-bottom:4px">${t('todaysEnergy')}</div>
-      <div style="font-size:12px;color:rgba(255,255,255,.7);line-height:1.7">${energyMsg}</div></div>
-    </div>
-  </div>`;
+      <span style="font-size:22px">🌙<\/span>
+      <div><div style="font-size:11px;color:var(--gold);font-weight:600;margin-bottom:4px">${t('todaysEnergy')}<\/div>
+      <div style="font-size:12px;color:rgba(255,255,255,.7);line-height:1.7">${energyMsg}<\/div><\/div>
+    <\/div>
+  <\/div>`;
 }
 
 // ── Ad Simulation ──
