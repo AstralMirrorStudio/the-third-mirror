@@ -5,7 +5,893 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" conten<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="THIRD MIRROR">
+<meta name="theme-color" content="#0A0C1C">
+<link rel="manifest" href="manifest.json">
+<title>THE THIRD MIRROR</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--gold:#C9A84C;--gold-dim:rgba(201,168,76,0.35);--navy:#0A0C1C;--navy2:#10142C;--card:rgba(22,26,50,0.9);--glass:rgba(255,255,255,0.12)}
+html,body{min-height:100vh;background:var(--navy);color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;overflow-x:hidden}
+#stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.screen{display:none;min-height:100vh;padding:60px 20px 100px;position:relative;z-index:1;max-width:430px;margin:0 auto}
+.screen.active{display:block}
+.lang-bar{position:fixed;top:10px;right:12px;display:flex;gap:6px;z-index:200}
+.lb{padding:4px 10px;border-radius:10px;border:1px solid var(--glass);background:transparent;color:rgba(255,255,255,.5);font-size:11px;letter-spacing:1px;cursor:pointer}
+.lb.on{border-color:var(--gold);background:rgba(201,168,76,.15);color:var(--gold)}
+.gold{color:var(--gold)}
+.div{display:flex;align-items:center;gap:12px;margin:24px 0}
+.div::before,.div::after{content:"";flex:1;height:.5px;background:var(--gold-dim)}
+.gbtn{width:100%;padding:18px;background:linear-gradient(135deg,#E1BE50,#B48C28);border:none;border-radius:12px;color:#0A0C1C;font-size:15px;font-weight:700;letter-spacing:3px;cursor:pointer;box-shadow:0 4px 12px rgba(201,168,76,.3)}
+.bbtn{width:100%;padding:14px;background:var(--card);border:1px solid var(--glass);border-radius:12px;color:rgba(255,255,255,.7);font-size:15px;cursor:pointer;margin-top:12px}
+.card{background:var(--card);border:1px solid var(--glass);border-radius:16px;padding:18px;margin-bottom:14px}
+.mbar{display:flex;background:var(--card);border:1px solid var(--glass);border-radius:12px;margin-bottom:14px}
+.mb{flex:1;padding:10px;border:none;background:transparent;color:rgba(255,255,255,.5);font-size:11px;cursor:pointer;border-radius:11px}
+.mb.on{background:rgba(201,168,76,.2);color:var(--gold);font-weight:600}
+.lbl{font-size:12px;color:var(--gold);letter-spacing:1px;margin-bottom:6px}
+.ibox{width:100%;padding:14px;background:var(--card);border:1px solid var(--glass);border-radius:12px;color:#fff;font-size:16px;text-align:center;cursor:pointer;margin-bottom:12px;-webkit-appearance:none}
+select.ibox{text-align:left;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23ffffff40' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+select.ibox option{background:#10142C;color:#fff}
+.note{font-size:10px;color:rgba(255,255,255,.38);font-style:italic;margin:-8px 0 12px}
+.ad-note{width:100%;padding:14px;background:rgba(201,168,76,.07);border:1px solid var(--gold-dim);border-radius:10px;font-size:12px;color:rgba(255,255,255,.6);text-align:center;line-height:1.7;margin-bottom:16px}
+.rcard{background:var(--card);border:1px solid var(--glass);border-radius:16px;padding:20px;margin-bottom:14px}
+.rlbl{font-size:11px;color:rgba(255,255,255,.38);letter-spacing:2px;margin-bottom:10px}
+.rsign{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.rtext{font-size:14px;color:rgba(255,255,255,.7);line-height:1.8}
+.adbtn{width:100%;padding:16px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.5);border-radius:12px;color:var(--gold);font-size:14px;letter-spacing:1px;cursor:pointer;margin-bottom:14px}
+.intcard{background:var(--card);border:1px solid rgba(201,168,76,.4);border-radius:16px;padding:20px;margin-bottom:14px;box-shadow:0 0 16px rgba(201,168,76,.08)}
+.wi{display:flex;gap:8px;margin-bottom:12px}
+.wi-i{flex:1;text-align:center;background:var(--card);border:1px solid var(--glass);border-radius:10px;padding:10px}
+.pcrow{display:flex;align-items:center;gap:8px;padding:5px 0}
+.asprow{font-size:12px;padding:6px 0;border-bottom:1px solid var(--glass)}
+.energy-card{background:linear-gradient(135deg,rgba(201,168,76,.1),var(--card));border:1px solid rgba(201,168,76,.25);border-radius:12px;padding:14px;margin-bottom:12px}
+.compat-gauge{text-align:center;padding:20px 0}
+.score-big{font-size:40px;font-weight:200;letter-spacing:2px}
+.pcard{background:var(--card);border-radius:14px;padding:12px;border:1px solid}
+.prow{display:flex;align-items:center;justify-content:center;gap:4px;font-size:12px;margin:3px 0}
+.progress-bar{height:6px;background:rgba(255,255,255,.12);border-radius:4px;overflow:hidden;margin-top:6px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),#87CEEB);border-radius:4px;transition:width .8s ease}
+.share-card{background:linear-gradient(135deg,#1A1035,#0A0C1C);border:1.5px solid var(--gold-dim);border-radius:20px;padding:20px;text-align:center;margin-bottom:16px;box-shadow:0 0 24px rgba(201,168,76,.2)}
+.share-title{font-size:12px;color:var(--gold);letter-spacing:2px;margin-bottom:12px}
+.share-text{font-size:13px;color:rgba(255,255,255,.7);line-height:1.9;text-align:left}
+.copy-btn{width:100%;padding:16px;background:linear-gradient(135deg,#E1BE50,#B48C28);border:none;border-radius:12px;color:#0A0C1C;font-size:15px;font-weight:700;letter-spacing:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--navy2);border:1px solid var(--gold-dim);border-radius:12px;padding:12px 24px;font-size:13px;color:var(--gold);z-index:999;display:none}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+<div class="lang-bar">
+  <button class="lb on" onclick="setLang('ja')">JA</button>
+  <button class="lb" onclick="setLang('en')">EN</button>
+  <button class="lb" onclick="setLang('es')">ES</button>
+</div>
+<div id="toast" class="toast"></div>
+
+<!-- HOME -->
+<div id="scr-home" class="screen active">
+  <div style="text-align:center;padding:20px 0 10px">
+    <div style="font-size:10px;letter-spacing:8px;color:rgba(201,168,76,.65)" data-t="starReading"></div>
+    <div style="font-size:13px;letter-spacing:12px;color:rgba(201,168,76,.35);margin:6px 0">THE</div>
+    <div style="font-size:52px;letter-spacing:10px;font-weight:300;text-shadow:0 0 14px rgba(201,168,76,.3)">THIRD</div>
+    <div style="font-size:38px;letter-spacing:14px;color:var(--gold);text-shadow:0 0 18px rgba(201,168,76,.4)">MIRROR</div>
+    <div style="font-size:14px;color:rgba(255,255,255,.6);font-style:italic;margin-top:10px" data-t="appSub"></div>
+  </div>
+  <canvas id="mirrorCanvas" width="180" height="230" style="display:block;margin:10px auto;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;border:2.5px solid var(--gold);box-shadow:0 0 20px rgba(201,168,76,.2)"></canvas>
+  <div class="card" style="text-align:center">
+    <div style="font-size:14px;color:var(--gold);letter-spacing:2px;margin-bottom:12px">✦ <span data-t="aboutTitle"></span> ✦</div>
+    <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.8" data-t="aboutBody"></div>
+  </div>
+  <div class="card" style="background:rgba(201,168,76,.06);border-color:var(--gold-dim);text-align:center">
+    <div style="font-size:12px;color:rgba(255,255,255,.6);line-height:1.8" data-t="unlockFeatures"></div>
+  </div>
+  <div class="div"><span style="font-size:9px;color:rgba(201,168,76,.5)">✦</span></div>
+  <div style="text-align:center;font-size:16px;color:var(--gold);letter-spacing:4px;margin-bottom:18px" data-t="threeTitle"></div>
+  <div id="mirror-cards"></div>
+  <div class="div"><span style="font-size:9px;color:rgba(201,168,76,.5)">✦</span></div>
+  <div style="font-size:12px;color:rgba(255,255,255,.54);font-style:italic;text-align:center;line-height:1.8;margin-bottom:28px" data-t="motto"></div>
+  <button class="gbtn" onclick="go('input')" data-t="reflect"></button>
+  <div style="height:40px"></div>
+</div>
+
+<!-- INPUT -->
+<div id="scr-input" class="screen">
+  <div class="mbar">
+    <button class="mb on" onclick="setMode(0)" data-t="selfTab"></button>
+    <button class="mb" onclick="setMode(1)" data-t="soulmateTab"></button>
+    <button class="mb" onclick="setMode(2)" data-t="loveTab"></button>
+  </div>
+  <div style="font-size:14px;color:var(--gold);letter-spacing:1px;text-align:center;margin-bottom:20px" data-t="inputTitle"></div>
+  <div id="inp-you"></div>
+  <div id="inp-partner" style="display:none">
+    <div class="div"><span style="font-size:9px;color:rgba(201,168,76,.5)">✦</span></div>
+    <div style="font-size:13px;color:#87CEEB;letter-spacing:2px;margin-bottom:10px">◆ <span data-t="partner"></span></div>
+    <div id="inp-partner-fields"></div>
+  </div>
+  <div class="ad-note" data-t="adNote"></div>
+  <button class="gbtn" onclick="doReflect()" data-t="reflect"></button>
+  <button class="bbtn" onclick="go('home')">← <span data-t="back"></span></button>
+</div>
+
+<!-- RESULT -->
+<div id="scr-result" class="screen">
+  <div style="text-align:center;font-size:20px;color:var(--gold);letter-spacing:3px;margin-bottom:10px" id="result-title"></div>
+  <div class="mbar">
+    <button class="mb on" onclick="setMode(0)" data-t="selfTab"></button>
+    <button class="mb" onclick="setMode(1)" data-t="soulmateTab"></button>
+    <button class="mb" onclick="setMode(2)" data-t="loveTab"></button>
+  </div>
+  <div id="result-body"></div>
+  <div class="div"><span style="font-size:9px;color:rgba(201,168,76,.5)">✦</span></div>
+  <button class="gbtn" onclick="showShare()" style="margin-bottom:12px">📋 <span data-t="shareBtn"></span></button>
+  <button class="bbtn" onclick="go('input')">← <span data-t="retryBtn"></span></button>
+</div>
+
+<!-- SHARE -->
+<div id="scr-share" class="screen">
+  <div style="text-align:center;font-size:18px;color:var(--gold);letter-spacing:2px;margin-bottom:20px" data-t="shareBtn"></div>
+  <div class="share-card">
+    <div class="share-title">✦ THE THIRD MIRROR ✦</div>
+    <div class="share-text" id="share-text-display"></div>
+  </div>
+  <button class="copy-btn" onclick="copyShare()">📋 <span data-t="copyShare"></span></button>
+  <button class="bbtn" onclick="go('result')">← <span data-t="back"></span></button>
+</div>
+
+<script>
+// ── State ──
+let lang='ja', mode=0, unlocked=false;
+let aDate={y:1990,m:1,d:1}, aTime={h:12,min:0};
+let bDate={y:1990,m:1,d:1}, bTime={h:12,min:0};
+let aCountry=0, aPref=-1, aCity=-1;
+let bCountry=0, bPref=-1, bCity=-1;
+let aSi=0,aMi=0,aAi=0,bSi=0,bMi=0,bAi=0;
+
+// ── L10n ──
+const T={
+ja:{starReading:'星 の 鑑 定',appSub:'星の鑑が映す、あなたの魂の姿',aboutTitle:'このアプリについて',
+  aboutBody:'日本では「星座占い＝太陽星座」が常識ですが、西洋占星術には2000年以上の歴史があります。古代バビロニアで生まれ、ギリシャ・ローマ・アラビアを経て発展した占星術は、常に三つの柱を魂の地図として使ってきました。',
+  unlockFeatures:'📺 広告視聴後に解放される機能\\n🔮 ホロスコープ星図（ネイタルチャート）\\n🌌 今日の星空（惑星配置・アスペクト）',
+  threeTitle:'三 つ の 鑑',reflect:'✦ 鏡 に 映 す ✦',motto:'The stars incline, they do not bind.\\n星は示す、縛りはしない。',
+  selfTab:'自分を映す',soulmateTab:'ソウルメイト',loveTab:'恋愛鑑定',
+  inputTitle:'生年月日と出生地を入力してください',
+  you:'あなた',partner:'相手',back:'戻る',retryBtn:'もう一度映す',shareBtn:'鑑定書をシェア',
+  birthDate:'生年月日',birthTime:'出生時刻',timeNote:'不明な場合はそのままで',
+  country:'国',prefecture:'都道府県',city:'市区町村',
+  selectPref:'― 都道府県を選択 ―',selectCity:'― 市区町村を選択 ―',selectCity2:'― 都市を選択 ―',
+  adNote:'☀ 太陽星座の鑑定は無料\\n月・ASC・統合メッセージ・星図・今日の星空は広告視聴後に解放',
+  adCompatNote:'📺 相性鑑定は広告視聴後に表示されます',
+  mirrorOne:'第一の鑑',mirrorTwo:'第二の鑑',mirrorThree:'第三の鑑',
+  sun:'太陽星座',moon:'月星座',asc:'アセンダント',
+  watchAd:'📺 広告を視聴して残りを解放する',watchAdCompat:'📺 広告を視聴して相性鑑定を解放する',
+  intTitle:'✦ 三つの鑑の統合メッセージ',resultTitle:'あなたの三枚の鑑',compatTitle:'二つの星の相性',
+  resonance:'魂の共鳴度',sunH:'太陽の調和',moonR:'月の共鳴',elemA:'元素の親和',
+  soulMsg:'✦ 魂の縁：ソウルメイト鑑定',loveMsg:'♡ 愛の縁：恋愛相性鑑定',
+  birthChart:'星図',natalChart:'ネイタルチャート',
+  todaysSky:'✦ 今日の星空',todaysSkyDesc:'天体があなたに語りかけること',
+  todaysPlanets:'今日の惑星配置',influence:'あなたへの影響',todaysEnergy:'今日のエネルギー',
+  elemTitle:'ホイールの色は四元素を表します',
+  copyShare:'コピーしてシェア',copied:'コピーしました！LINEやSNSに貼り付けてください',
+  sunSignsJa:['牡羊座','牡牛座','双子座','蟹座','獅子座','乙女座','天秤座','蠍座','射手座','山羊座','水瓶座','魚座'],
+},
+en:{starReading:'STAR READING',appSub:'Your soul reflected in starlight',aboutTitle:'About This App',
+  aboutBody:'Western astrology has over 2000 years of history. Born in ancient Babylonia, developed through Greece, Rome and Arabia — three pillars used as a map of the soul.',
+  unlockFeatures:'📺 Unlocked after watching an ad\\n🔮 Horoscope Natal Chart\\n🌌 Today\'s Sky (planets & aspects)',
+  threeTitle:'Three Mirrors',reflect:'✦ Reflect in the Mirror ✦',motto:'The stars incline, they do not bind.',
+  selfTab:'Self',soulmateTab:'Soulmate',loveTab:'Love',
+  inputTitle:'Enter your birth date and birthplace',
+  you:'You',partner:'Partner',back:'Back',retryBtn:'Read Again',shareBtn:'Share Reading',
+  birthDate:'Date of Birth',birthTime:'Time of Birth',timeNote:'Leave blank if unknown',
+  country:'Country',prefecture:'Prefecture',city:'City',
+  selectPref:'— Select Prefecture —',selectCity:'— Select City —',selectCity2:'— Select City —',
+  adNote:'☀ Sun sign reading is free\\nMoon, ASC, chart & sky unlocked after ad',
+  adCompatNote:'📺 Compatibility reading unlocked after watching an ad',
+  mirrorOne:'First Mirror',mirrorTwo:'Second Mirror',mirrorThree:'Third Mirror',
+  sun:'Sun Sign',moon:'Moon Sign',asc:'Ascendant',
+  watchAd:'📺 Watch Ad to Unlock Reading',watchAdCompat:'📺 Watch Ad to Unlock Compatibility',
+  intTitle:'✦ Integrated Message',resultTitle:'Your Three Mirrors',compatTitle:'Star Compatibility',
+  resonance:'Soul Resonance',sunH:'Sun Harmony',moonR:'Moon Resonance',elemA:'Element Affinity',
+  soulMsg:'✦ Soul Bond: Soulmate Reading',loveMsg:'♡ Love Bond: Romance Reading',
+  birthChart:'Birth Chart',natalChart:'Natal Chart',
+  todaysSky:'✦ Today\'s Sky',todaysSkyDesc:'What the planets say to you today',
+  todaysPlanets:'Today\'s Planets',influence:'Aspects to Your Chart',todaysEnergy:'Today\'s Energy',
+  elemTitle:'Wheel colors represent the four elements',
+  copyShare:'Copy & Share',copied:'Copied! Paste it to LINE, Instagram or any app',
+},
+es:{starReading:'LECTURA ESTELAR',appSub:'Tu alma reflejada en la luz de las estrellas',aboutTitle:'Sobre Esta App',
+  aboutBody:'La astrología occidental tiene más de 2000 años de historia. Nacida en Babilonia, desarrollada a través de Grecia, Roma y Arabia.',
+  unlockFeatures:'📺 Desbloqueado tras ver un anuncio\\n🔮 Carta Natal (Horóscopo)\\n🌌 Cielo de Hoy',
+  threeTitle:'Tres Espejos',reflect:'✦ Reflejar en el Espejo ✦',motto:'Las estrellas inclinan, no atan.',
+  selfTab:'Yo',soulmateTab:'Alma Gemela',loveTab:'Amor',
+  inputTitle:'Ingresa tu fecha de nacimiento y lugar',
+  you:'Tú',partner:'Pareja',back:'Volver',retryBtn:'Leer de Nuevo',shareBtn:'Compartir Lectura',
+  birthDate:'Fecha de Nacimiento',birthTime:'Hora de Nacimiento',timeNote:'Déjalo en blanco si no sabes',
+  country:'País',prefecture:'Prefectura',city:'Ciudad',
+  selectPref:'— Seleccionar Prefectura —',selectCity:'— Seleccionar Ciudad —',selectCity2:'— Seleccionar Ciudad —',
+  adNote:'☀ Lectura solar gratis\\nLuna, ASC, carta y cielo tras anuncio',
+  adCompatNote:'📺 La lectura de compatibilidad se desbloquea tras ver un anuncio',
+  mirrorOne:'Primer Espejo',mirrorTwo:'Segundo Espejo',mirrorThree:'Tercer Espejo',
+  sun:'Signo Solar',moon:'Signo Lunar',asc:'Ascendente',
+  watchAd:'📺 Ver Anuncio para Desbloquear',watchAdCompat:'📺 Ver Anuncio para Desbloquear Compatibilidad',
+  intTitle:'✦ Mensaje Integrado',resultTitle:'Tus Tres Espejos',compatTitle:'Compatibilidad Estelar',
+  resonance:'Resonancia del Alma',sunH:'Armonía Solar',moonR:'Resonancia Lunar',elemA:'Afinidad Elemental',
+  soulMsg:'✦ Vínculo del Alma',loveMsg:'♡ Vínculo Amoroso',
+  birthChart:'Carta Natal',natalChart:'Carta Natal',
+  todaysSky:'✦ Cielo de Hoy',todaysSkyDesc:'Lo que los planetas te dicen hoy',
+  todaysPlanets:'Planetas de Hoy',influence:'Aspectos a Tu Carta',todaysEnergy:'Energía de Hoy',
+  elemTitle:'Los colores representan los cuatro elementos',
+  copyShare:'Copiar y Compartir',copied:'¡Copiado! Pégalo en cualquier app',
+}};
+
+function t(k){return (T[lang]||T.ja)[k]||k}
+function setLang(l){lang=l;document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.textContent===l.toUpperCase()));updateAllText();renderCurrentScreen()}
+function updateAllText(){document.querySelectorAll('[data-t]').forEach(el=>{let k=el.dataset.t,v=t(k);el.innerHTML=v.replace(/\\n/g,'<br>')})}
+
+// ── Astrology ──
+const SIGNS_JA=['牡羊座','牡牛座','双子座','蟹座','獅子座','乙女座','天秤座','蠍座','射手座','山羊座','水瓶座','魚座'];
+const SIGNS_EN=['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'];
+const SIGNS_ES=['Aries','Tauro','Géminis','Cáncer','Leo','Virgo','Libra','Escorpio','Sagitario','Capricornio','Acuario','Piscis'];
+const SYMS=['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
+const ICONS=['🔥','☿','🌙','☿','♀','♂','⚖','🦂','🏹','🐐','🏺','🐟'];
+function signName(i){if(lang==='en')return SIGNS_EN[i%12];if(lang==='es')return SIGNS_ES[i%12];return SIGNS_JA[i%12]}
+function elem(i){return [0,1,2,3,0,1,2,3,0,1,2,3][i%12]}
+function sunIdx(y,m,d){if((m===3&&d>=21)||(m===4&&d<=19))return 0;if((m===4&&d>=20)||(m===5&&d<=20))return 1;if((m===5&&d>=21)||(m===6&&d<=20))return 2;if((m===6&&d>=21)||(m===7&&d<=22))return 3;if((m===7&&d>=23)||(m===8&&d<=22))return 4;if((m===8&&d>=23)||(m===9&&d<=22))return 5;if((m===9&&d>=23)||(m===10&&d<=22))return 6;if((m===10&&d>=23)||(m===11&&d<=21))return 7;if((m===11&&d>=22)||(m===12&&d<=21))return 8;if((m===12&&d>=22)||(m===1&&d<=19))return 9;if((m===1&&d>=20)||(m===2&&d<=18))return 10;return 11}
+function moonIdx(y,m,d){const j=new Date(2000,0,1,12);const now=new Date(y,m-1,d,12);const diff=(now-j)/86400000;let l=(218.316+13.176396*diff)%360;if(l<0)l+=360;return Math.floor(l/30)%12}
+function ascIdx(y,m,d,h,min){const j=new Date(2000,0,1,12);const now=new Date(y,m-1,d,h,min);const diff=(now-j)/86400000;const lst=(100.46+0.985647*diff+139.69+15*(h+min/60))%360;const lr=35.68*Math.PI/180;const ls=lst*Math.PI/180;let a=Math.atan2(Math.cos(ls),-(Math.sin(ls)*Math.cos(23.45*Math.PI/180)+Math.tan(lr)*Math.sin(23.45*Math.PI/180)))*180/Math.PI;if(a<0)a+=360;return Math.floor(a/30)%12}
+function elemCompat(a,b){const ea=elem(a),eb=elem(b);if(ea===eb)return 75;const p=new Set([ea,eb]);if((p.has(0)&&p.has(2)))return 90;if((p.has(1)&&p.has(3)))return 85;if((p.has(0)&&p.has(3))||(p.has(1)&&p.has(2)))return 45;return 55}
+function compat(as,am,bs,bm){const s=elemCompat(as,bs),mo=elemCompat(am,bm),e=elemCompat(as,bm);return{total:Math.round(s*.4+mo*.35+e*.25),sun:s,moon:mo,elem:e}}
+function compatLabel(s){if(s>=85)return lang==='ja'?'深い魂の絆':lang==='en'?'Deep Soul Bond':'Vínculo Profundo';if(s>=75)return lang==='ja'?'美しい調和':lang==='en'?'Beautiful Harmony':'Bella Armonía';if(s>=65)return lang==='ja'?'互いを高め合う':lang==='en'?'Mutual Growth':'Crecimiento Mutuo';if(s>=55)return lang==='ja'?'学び合う関係':lang==='en'?'Learning Together':'Aprendizaje Mutuo';return lang==='ja'?'成長の余地あり':lang==='en'?'Room to Grow':'Espacio para Crecer'}
+
+// ── Readings ──
+const READINGS={
+ja:{
+'牡羊座':'険しい荒野を誰よりも先に駆け抜ける——それがあなたの魂の本質です。牡羊座は、魂の地図において「始まり」を司ります。行動することが思考することよりも先に来る、その衝動は弱さではなく、宇宙があなたに与えた最大の武器です。情熱の炎が燃え尽きたように見えても、それは次の炎のための準備。あなたは何度でも蘇る魂です。',
+'牡牛座':'大地に深く根を張り、豊かな実りを育てる——それがあなたの魂の使命です。あなたが触れるものに価値が宿り、あなたがいる場所に心地よさが生まれます。変化を恐れるように見えるその慎重さは、「本物だけを選ぶ」という魂の高い基準の表れです。一度心を許した相手への忠誠心は、この世界で最も尊い宝のひとつです。',
+'双子座':'二つの翼で知の世界を自由に飛び回る——それがあなたの魂の喜びです。あなたの好奇心は枯れることなく、常に新しい世界の扉を叩き続けます。言葉があなたの剣であり、橋であり、翼です。あなたは同時に複数の真実を掴む能力を持つ、稀有な魂なのです。',
+'蟹座':'月の満ち欠けとともに感情の海を泳ぐ——それがあなたの魂の旅です。あなたの心は、他者の痛みをまるで自分のことのように感じ取ります。その深い共感力は時に重荷になることもありますが、それはあなたが人間の感情の深海を泳げる数少ない魂だからです。大切な人を守ろうとする本能は、宇宙があなたに与えた最も美しい使命です。',
+'獅子座':'太陽そのものを魂に宿し、周囲を照らし続ける——それがあなたの存在意義です。あなたが部屋に入ると、空気が変わります。それはあなたが意図しなくても、魂が持つ光の強さがそうさせるのです。あなたは世界に勇気と喜びを与えるために生まれてきた、真のリーダーです。',
+'乙女座':'混沌の中に秩序を見出し、不完全な世界を少しずつ整えていく——それがあなたの魂の仕事です。あなたの目は、他の人が見落とす細部を捉えます。あなたの誠実さと献身は、この世界を確実に美しくしています。',
+'天秤座':'二つの皿を完璧なバランスに保ちながら、美の世界を歩み続ける——それがあなたの魂の使命です。あなたが作り出す美しい空間と人間関係は、周囲の人の魂を癒す、かけがえのない贈り物です。',
+'蠍座':'深海の底まで潜り、そこに隠された真実の宝を持ち帰る——それがあなたの魂の使命です。一度心を開いた相手への愛は、この宇宙で最も強力なエネルギーのひとつです。物事の本質、人間の本音、存在の意味——そういった深いレベルでのみ、あなたの魂は本当の意味で生きています。',
+'射手座':'地平線の向こうに常に新しい真実を求め、自由に駆け続ける——それがあなたの魂の本質です。あなたの笑いは部屋全体を明るくし、楽観主義は周囲の人に希望を与えます。あなたの正直さと率直さは、真実を愛する魂の誠実さです。',
+'山羊座':'険しい山を一歩ずつ登る——その過程の中に神聖を見出す魂です。責任感、忍耐、現実を直視する冷静な眼——土星があなたに与えた王冠の素材です。山頂から見える景色は、登った者にしか与えられない祝福です。',
+'水瓶座':'時代の一歩先を歩き、まだ誰も見たことのない未来を指し示す——それがあなたの魂の役割です。個性を愛し、多様性を尊重するあなたの存在は、この世界をより豊かで自由な場所にしていきます。',
+'魚座':'目に見えない世界と見える世界の間に立ち、両方の言葉を語ることができる——それがあなたの魂の特別な能力です。あなたが創り出す芸術、音楽、言葉、優しさ——それらは魂の深い場所から湧き出る、純粋な宇宙の贈り物です。',
+},
+en:{
+'Aries':'Racing across the wilderness before anyone else — that is the essence of your soul. The impulse to act before thinking is not weakness — it is the greatest weapon the universe has given you. You are a soul that rises again and again.',
+'Taurus':'Sending deep roots into the earth — that is your soul\'s mission. Your loyalty to those you love is one of the most precious treasures in this world.',
+'Gemini':'Flying freely through the world of knowledge — that is your soul\'s joy. Words are your sword, your bridge, and your wings.',
+'Cancer':'Swimming through the sea of emotion — that is your soul\'s journey. The instinct to protect your loved ones is the most beautiful mission the universe has given you.',
+'Leo':'Carrying the sun itself within your soul — that is your reason for being. You are a true leader, born to bring courage and joy to the world.',
+'Virgo':'Finding order within chaos — that is your soul\'s work. Your sincerity and dedication are unmistakably making this world more beautiful.',
+'Libra':'Walking through beauty while keeping balance — that is your soul\'s mission. The spaces and relationships you create are an irreplaceable gift that heals the souls around you.',
+'Scorpio':'Diving to the depths and bringing back hidden truth — that is your soul\'s mission. The love you offer is one of the most powerful energies in this universe.',
+'Sagittarius':'Always seeking truth beyond the horizon — that is your soul\'s nature. Your laughter brightens an entire room.',
+'Capricorn':'Climbing a steep mountain one step at a time — finding the sacred within that process. The view from the summit is a blessing given only to those who have climbed.',
+'Aquarius':'Walking one step ahead of the era — that is your soul\'s role. Your existence is making this world a richer and freer place.',
+'Pisces':'Standing between the invisible and visible worlds — that is your soul\'s special ability. The art, music, words, and kindness you create are pure gifts from the universe.',
+},
+es:{
+'Aries':'Correr por la naturaleza salvaje antes que nadie — esa es la esencia de tu alma. Eres un alma que resurge una y otra vez.',
+'Tauro':'Echar raíces profundas en la tierra — esa es la misión de tu alma. Tu lealtad es uno de los tesoros más preciados.',
+'Géminis':'Volar libremente — esa es la alegría de tu alma. Las palabras son tu espada, tu puente y tus alas.',
+'Cáncer':'Nadar por el mar de las emociones — ese es el viaje de tu alma. El instinto de proteger es tu misión más hermosa.',
+'Leo':'Llevar el sol dentro de tu alma — esa es tu razón de ser. Eres un verdadero líder.',
+'Virgo':'Encontrar orden en el caos — ese es el trabajo de tu alma.',
+'Libra':'Caminar en belleza manteniendo el equilibrio — esa es la misión de tu alma.',
+'Escorpio':'Sumergirse y traer de vuelta la verdad — esa es la misión de tu alma.',
+'Sagitario':'Siempre buscando verdad — esa es la naturaleza de tu alma.',
+'Capricornio':'Escalar una montaña paso a paso — ese es el camino de tu alma.',
+'Acuario':'Caminar un paso adelante de la era — ese es el papel de tu alma.',
+'Piscis':'Estar entre los mundos invisible y visible — esa es tu habilidad especial.',
+}};
+function getReading(idx){const n=signName(idx);return (READINGS[lang]||READINGS.ja)[n]||''}
+
+function integratedMsg(si,mi,ai){
+  const sn=signName(si),mn=signName(mi),an=signName(ai);
+  if(lang==='ja')return `太陽が${sn}にあるあなたの魂の使命、月が${mn}にある深層の感情、そしてアセンダントの${an}が世界に示す姿——この三つが統合される時、あなたという存在の全体像が初めて現れます。\\n\\n${sn}の意志と情熱が内なる核として燃え、${mn}が感情の根を育て、${an}というフィルターを通して世界へと表現される。この三重の構造があなたの唯一無二の魂のアーキテクチャです。\\n\\n星は縛りはしない——しかし、あなたの魂の地図を永遠に照らし続けます。`;
+  if(lang==='en')return `Your Sun in ${sn} burns as the mission of your soul, your Moon in ${mn} nurtures your emotional truth, and your Ascendant in ${an} is the doorway through which you meet the world.\\n\\nThe will of ${sn} forms your inner core, ${mn} shapes your emotional landscape, and ${an} is your unique filter of expression.\\n\\nThe stars do not bind — but they illuminate your soul's map forever.`;
+  return `Tu Sol en ${sn}, tu Luna en ${mn}, y tu Ascendente en ${an}. Cuando los tres se unen, tu ser completo emerge.\\n\\nLas estrellas no atan — pero iluminan el mapa de tu alma para siempre.`;
+}
+
+function soulmateMsg(as,am,bs,bm,isLove){
+  const ea=elem(as),eb=elem(bs);
+  const key=`${ea}${eb}`;
+  const msgs={
+  '00':{ja:isLove?'恋愛心理学の研究が示すように、同じ火のエネルギーを持つ二人の恋愛は、最も情熱的で刺激的な関係のひとつです。しかし、その情熱を持続させるためには意識的な選択が必要です。ポジティブ心理学のフレドリクソンが提唱する「拡張と形成理論」によれば、ポジティブな感情は思考と行動の幅を広げ、長期的な幸福の資源を形成します。\\n\\n【今日からできること】\\nマンネリを感じたら、まったく新しい体験を一緒にしてみてください。新しい刺激が炎を再び燃え上がらせます。':'仏教には「縁起（えんぎ）」という概念があります。すべての存在は互いに縁によって生じ、縁によって支え合っているという宇宙の法則です。同じ火のエネルギーを持つ二人の出会いは、深い縁起の網の目に織り込まれた必然の出会いです。\\n\\n神道では、魂と魂の出会いを「ムスビ（結び）」と呼びます。二つの炎が出会う時、その光は二倍になります。\\n\\n【今日からできること】\\n朝、相手のことを一つ感謝する言葉を心の中で唱えてみてください。',
+  en:isLove?'Fire meets fire — the most passionate and stimulating combination. Positive psychology shows these emotions broaden thinking and build long-term happiness.\\n\\n【Starting Today】\\nWhen routine sets in, do something completely new together. New experiences reignite the flame.':'Buddhist "dependent origination" teaches all beings arise through interconnected conditions. Two fire souls meeting is woven into the cosmic web of karma.\\n\\nIn Shinto, soul meetings are called "Musubi" — sacred binding. When fire meets fire, the light doubles.\\n\\n【Starting Today】\\nEach morning, silently offer one word of gratitude for your partner\'s existence.',
+  es:isLove?'Fuego encuentra fuego — la combinación más apasionante. La psicología positiva muestra que estas emociones amplían el pensamiento.\\n\\n【Desde Hoy】\\nCuando la rutina aparezca, haz algo completamente nuevo juntos.':'El budismo enseña "pratītyasamutpāda" — todos los seres surgen a través de condiciones interconectadas. Dos almas de fuego que se encuentran están tejidas en la red cósmica del karma.\\n\\n【Desde Hoy】\\nCada mañana, ofrece mentalmente una palabra de gratitud.'},
+  '11':{ja:isLove?'エリッヒ・フロムは「愛するということ」でこう書きました。「愛は技術である」と。大地と大地の恋愛は、この愛の技術を最も丁寧に磨き上げることができる組み合わせです。ゴットマン博士の40年間の研究が示すように、関係の幸福度を最も強く予測するのは「安定した信頼感」です。\\n\\n【今日からできること】\\n半年に一度、普通の日に二人で過去を振り返る時間を作ってください。':'仏教の「中道」の教えは、大地の安定の中にこそ真の自由があると説きます。時間をかけて積み重ねられた信頼は、どんな情熱よりも永遠に近い輝きを持ちます。\\n\\n【今日からできること】\\n今日、相手に具体的な「ありがとう」を伝えてください。',
+  en:isLove?'Fromm wrote "Love is an art." Earth-earth romance can most carefully perfect this art. Gottman\'s 40 years of research shows stable trust is the strongest predictor of relationship happiness.\\n\\n【Starting Today】\\nOnce every six months, on an ordinary day, look back together.':'Buddhist "Middle Way" teaches true freedom lies within stability. Trust built slowly over time shines with a light closer to eternity than any passion.\\n\\n【Starting Today】\\nOffer one specific "thank you" today.',
+  es:isLove?'Fromm escribió "El amor es un arte." El romance tierra-tierra puede perfeccionar este arte. La investigación de Gottman muestra que la confianza estable predice la felicidad.\\n\\n【Desde Hoy】\\nUna vez cada seis meses, miren atrás juntos.':'La "Vía Media" budista enseña que la verdad reside en la estabilidad.\\n\\n【Desde Hoy】\\nOfrece un "gracias" específico hoy.'},
+  '22':{ja:isLove?'哲学者デリダは「愛とは他者の他者性を尊重することから始まる」と述べました。風と風の恋愛は、この他者性の尊重を最も自然に実践できる組み合わせです。会話が生み出す「知的な自己拡張」が、二人の恋愛の最も強力な接着剤です。\\n\\n【今日からできること】\\n週に一度、スマートフォンをしまって「会話だけ」の30分を作ってください。':'般若心経が説く「色即是空」——物質的な形の背後に、無限の可能性の空間があります。言霊（ことだま）の思想では、言葉には魂が宿ります。会話が尽きることなく互いの世界を広げ続けるあなたたちは、言霊の力を最大限に活用できるペアです。\\n\\n【今日からできること】\\n月に一度、「今、私が本当に感じていること」を言葉にする時間を作ってください。',
+  en:isLove?'Derrida said "Love begins with respecting the otherness of the other." Wind-wind romance most naturally practices this. Intellectual self-expansion is your most powerful adhesive.\\n\\n【Starting Today】\\nOnce a week, put away phones and have 30 minutes of conversation only.':'The Heart Sutra teaches "form is emptiness." Shinto\'s "kotodama" holds words carry spirit. You two can maximize the power of kotodama.\\n\\n【Starting Today】\\nOnce a month, put into words "what I\'m truly feeling right now."',
+  es:isLove?'Derrida dijo "El amor comienza con respetar la alteridad del otro." La auto-expansión intelectual es vuestro adhesivo más poderoso.\\n\\n【Desde Hoy】\\nUna vez a la semana, guarda el teléfono y ten 30 minutos solo de conversación.':'El Sutra del Corazón enseña "la forma es vacío."\\n\\n【Desde Hoy】\\nUna vez al mes, pon en palabras "lo que realmente siento ahora mismo."'},
+  '33':{ja:isLove?'ボウルビィは「愛着行動はゆりかごから墓場まで続く」と述べました。水と水の恋愛は、この生涯にわたる愛着を最も深く体験できる関係です。神経科学者ルシー・ブラウンの研究では、長期恋愛でも初期と同じドーパミン活性化が見られます——愛し続けることは生物学的に可能です。\\n\\n【今日からできること】\\n月に一度、「私が今本当に欲しいもの」を率直に伝える練習をしてください。':'仏教の「輪廻転生」において、同じ水の流れを持つ魂は、幾世もの時を超えて再会すると説かれています。言葉にしなくても分かり合える瞬間が、この関係には満ちています——それは過去世からの記憶が共鳴しているからかもしれません。\\n\\n【今日からできること】\\n週に一度、一人の静かな時間を意識的に作ってください。満たされた井戸だけが、他者に水を分け与えることができます。',
+  en:isLove?'Bowlby stated "attachment behavior continues from cradle to grave." Water-water romance can most deeply experience this. Neuroscientist Lucy Brown\'s research shows long-term relationships show the same dopamine activation as early romance.\\n\\n【Starting Today】\\nOnce a month, practice honestly communicating "what I truly want right now."':'Buddhist reincarnation teaches water souls meet again across many lifetimes. Moments of wordless understanding fill this relationship — perhaps past-life memories resonating.\\n\\n【Starting Today】\\nOnce a week, consciously create quiet time alone. Only a full well can share water with others.',
+  es:isLove?'Bowlby afirmó "el comportamiento de apego continúa de la cuna a la tumba." La investigación de Lucy Brown muestra la misma activación de dopamina en relaciones a largo plazo.\\n\\n【Desde Hoy】\\nUna vez al mes, practica comunicar honestamente "lo que realmente quiero ahora mismo."':'El budismo enseña que las almas de agua se reencuentran a través de muchas vidas.\\n\\n【Desde Hoy】\\nUna vez a la semana, crea conscientemente tiempo tranquilo a solas.'},
+  };
+  const symkey=`${ea}${eb}`;const rkey=`${eb}${ea}`;
+  const entry=msgs[symkey]||msgs[rkey]||msgs['00'];
+  return (entry[lang]||entry.en||entry.ja).replace(/\\n/g,'\\n');
+}
+
+// ── Planets ──
+function planetLon(now,planet){const j=new Date(2000,0,1,12);const d=(now-j)/86400000;const lons={Sun:280.460+0.985647*d,Moon:218.316+13.176396*d,Mercury:252.251+4.092317*d,Venus:181.979+1.602136*d,Mars:355.433+0.524039*d,Jupiter:34.351+0.083056*d,Saturn:50.077+0.033459*d};let l=lons[planet]%360;if(l<0)l+=360;return l}
+function todayPlanets(){
+  const now=new Date();
+  const ps=[{key:'Sun',ja:'太陽',en:'Sun',es:'Sol',sym:'☀'},{key:'Moon',ja:'月',en:'Moon',es:'Luna',sym:'☽'},{key:'Mercury',ja:'水星',en:'Mercury',es:'Mercurio',sym:'☿'},{key:'Venus',ja:'金星',en:'Venus',es:'Venus',sym:'♀'},{key:'Mars',ja:'火星',en:'Mars',es:'Marte',sym:'♂'},{key:'Jupiter',ja:'木星',en:'Jupiter',es:'Júpiter',sym:'♃'},{key:'Saturn',ja:'土星',en:'Saturn',es:'Saturno',sym:'♄'}];
+  return ps.map(p=>({...p,lon:planetLon(now,p.key)}));
+}
+function planetAspects(planets,si,mi,ai){
+  const natal=[{sym:'☀',name:signName(si),lon:si*30+15},{sym:'☽',name:signName(mi),lon:mi*30+15},{sym:'↑',name:signName(ai),lon:ai*30}];
+  const result=[];
+  planets.forEach(p=>{natal.forEach(n=>{let diff=Math.abs(p.lon-n.lon)%360;if(diff>180)diff=360-diff;let aName=null,aSym=null,isH=true;
+    if(diff<=8){aName=lang==='ja'?'コンジャンクション':lang==='en'?'Conjunction':'Conjunción';aSym='☌';isH=true}
+    else if(Math.abs(diff-60)<=6){aName=lang==='ja'?'セクスタイル':lang==='en'?'Sextile':'Sextil';aSym='✶';isH=true}
+    else if(Math.abs(diff-90)<=8){aName=lang==='ja'?'スクエア':lang==='en'?'Square':'Cuadratura';aSym='□';isH=false}
+    else if(Math.abs(diff-120)<=8){aName=lang==='ja'?'トライン':lang==='en'?'Trine':'Trígono';aSym='△';isH=true}
+    else if(Math.abs(diff-180)<=8){aName=lang==='ja'?'オポジション':lang==='en'?'Opposition':'Oposición';aSym='☍';isH=false}
+    if(aName)result.push({p,n,aName,aSym,isH});
+  })});return result;
+}
+
+// ── Countries ──
+const COUNTRIES={
+ja:['日本', 'アメリカ', 'スペイン', 'イギリス', 'フランス', 'ドイツ', 'イタリア', 'オーストラリア', 'カナダ', 'ブラジル', 'メキシコ', 'アルゼンチン', '中国', '韓国', '台湾', '香港', 'インド', 'タイ', 'ベトナム', 'インドネシア', 'マレーシア', 'フィリピン', 'シンガポール', 'ミャンマー', 'カンボジア', 'オランダ', 'ベルギー', 'スウェーデン', 'ノルウェー', 'デンマーク', 'フィンランド', 'スイス', 'オーストリア', 'ポルトガル', 'ポーランド', 'チェコ', 'トルコ', 'ロシア', 'エジプト', '南アフリカ', 'ニュージーランド', 'その他'],
+en:['Japan', 'USA', 'Spain', 'UK', 'France', 'Germany', 'Italy', 'Australia', 'Canada', 'Brazil', 'Mexico', 'Argentina', 'China', 'South Korea', 'Taiwan', 'Hong Kong', 'India', 'Thailand', 'Vietnam', 'Indonesia', 'Malaysia', 'Philippines', 'Singapore', 'Myanmar', 'Cambodia', 'Netherlands', 'Belgium', 'Sweden', 'Norway', 'Denmark', 'Finland', 'Switzerland', 'Austria', 'Portugal', 'Poland', 'Czech Republic', 'Turkey', 'Russia', 'Egypt', 'South Africa', 'New Zealand', 'Other'],
+es:['Japón', 'EE.UU.', 'España', 'Reino Unido', 'Francia', 'Alemania', 'Italia', 'Australia', 'Canadá', 'Brasil', 'México', 'Argentina', 'China', 'Corea del Sur', 'Taiwán', 'Hong Kong', 'India', 'Tailandia', 'Vietnam', 'Indonesia', 'Malasia', 'Filipinas', 'Singapur', 'Myanmar', 'Camboya', 'Países Bajos', 'Bélgica', 'Suecia', 'Noruega', 'Dinamarca', 'Finlandia', 'Suiza', 'Austria', 'Portugal', 'Polonia', 'Rep. Checa', 'Turquía', 'Rusia', 'Egipto', 'Sudáfrica', 'Nueva Zelanda', 'Otro']};
+const WORLD_CITIES=['','New York,Los Angeles,Chicago,Houston,Phoenix,San Antonio,San Diego,Dallas,San Jose,Austin,San Francisco,Seattle,Denver,Nashville,Las Vegas,Washington D.C.,Boston,Portland,Miami,Atlanta','Madrid,Barcelona,Valencia,Sevilla,Zaragoza,Málaga,Murcia,Palma,Las Palmas,Bilbao,Alicante,Córdoba,Valladolid,Vigo,Granada,Vitoria,A Coruña,Oviedo','London,Birmingham,Manchester,Glasgow,Liverpool,Leeds,Sheffield,Edinburgh,Bristol,Leicester,Coventry,Bradford,Cardiff,Belfast,Nottingham,Newcastle','Paris,Marseille,Lyon,Toulouse,Nice,Nantes,Strasbourg,Montpellier,Bordeaux,Lille,Rennes,Reims,Le Havre,Saint-Étienne,Grenoble,Dijon','Berlin,Hamburg,Munich,Cologne,Frankfurt,Stuttgart,Düsseldorf,Leipzig,Dortmund,Essen,Bremen,Dresden,Hannover,Nuremberg','Rome,Milan,Naples,Turin,Palermo,Genoa,Bologna,Florence,Bari,Catania,Venice,Verona,Messina,Padua','Sydney,Melbourne,Brisbane,Perth,Adelaide,Gold Coast,Canberra,Newcastle,Wollongong,Hobart,Townsville,Darwin','Toronto,Montreal,Vancouver,Calgary,Edmonton,Ottawa,Winnipeg,Quebec City,Hamilton,Victoria,Halifax','São Paulo,Rio de Janeiro,Brasília,Salvador,Fortaleza,Belo Horizonte,Manaus,Curitiba,Recife,Porto Alegre','Mexico City,Guadalajara,Monterrey,Puebla,Tijuana,León,Querétaro,Mérida,Mexicali,Aguascalientes','Buenos Aires,Córdoba,Rosario,Mendoza,La Plata,Tucumán,Mar del Plata,Salta,Santa Fe','Beijing,Shanghai,Guangzhou,Shenzhen,Chengdu,Chongqing,Tianjin,Wuhan,Hangzhou,Xi-an,Nanjing,Suzhou,Wuxi,Changsha','Seoul,Busan,Incheon,Daegu,Daejeon,Gwangju,Suwon,Ulsan,Changwon,Jeonju','Taipei,New Taipei,Taichung,Tainan,Kaohsiung,Hsinchu,Keelung,Chiayi','Hong Kong,Kowloon,New Territories','Mumbai,Delhi,Bangalore,Hyderabad,Ahmedabad,Chennai,Kolkata,Surat,Pune,Jaipur,Lucknow,Kanpur,Nagpur,Visakhapatnam,Indore','Bangkok,Chiang Mai,Pattaya,Phuket,Khon Kaen,Nakhon Ratchasima,Hat Yai,Udon Thani,Chiang Rai','Ho Chi Minh City,Hanoi,Da Nang,Can Tho,Hai Phong,Hue,Nha Trang,Vung Tau,Bien Hoa','Jakarta,Surabaya,Bandung,Medan,Bekasi,Tangerang,Semarang,Palembang,Makassar,Depok,Batam','Kuala Lumpur,George Town,Ipoh,Shah Alam,Petaling Jaya,Johor Bahru,Malacca,Kota Kinabalu,Kuching','Manila,Quezon City,Davao,Caloocan,Cebu City,Zamboanga,Taguig,Antipolo,Cagayan de Oro','Singapore','Yangon,Mandalay,Naypyidaw,Mawlamyine,Bago','Phnom Penh,Siem Reap,Sihanoukville,Battambang','Amsterdam,Rotterdam,The Hague,Utrecht,Eindhoven,Tilburg,Groningen,Almere,Breda','Brussels,Antwerp,Ghent,Bruges,Liège,Namur','Stockholm,Gothenburg,Malmö,Uppsala,Linköping,Västerås,Örebro,Helsingborg','Oslo,Bergen,Trondheim,Stavanger,Drammen,Fredrikstad','Copenhagen,Aarhus,Odense,Aalborg,Esbjerg','Helsinki,Espoo,Tampere,Vantaa,Oulu,Turku','Zurich,Geneva,Basel,Bern,Lausanne,Winterthur,Lucerne,St. Gallen','Vienna,Graz,Linz,Salzburg,Innsbruck,Klagenfurt','Lisbon,Porto,Braga,Amadora,Setúbal,Coimbra,Funchal','Warsaw,Krakow,Lodz,Wroclaw,Poznan,Gdansk,Szczecin,Bydgoszcz','Prague,Brno,Ostrava,Plzen,Liberec,Olomouc','Istanbul,Ankara,Izmir,Bursa,Adana,Gaziantep,Konya,Antalya,Kayseri,Mersin','Moscow,Saint Petersburg,Novosibirsk,Yekaterinburg,Kazan,Nizhny Novgorod,Chelyabinsk,Samara','Cairo,Alexandria,Giza,Shubra El Kheima,Port Said,Suez,Luxor,Aswan','Johannesburg,Cape Town,Durban,Pretoria,Port Elizabeth,Bloemfontein,East London','Auckland,Wellington,Christchurch,Hamilton,Tauranga,Dunedin,Palmerston North',''];
+const PREFS='北海道,青森県,岩手県,宮城県,秋田県,山形県,福島県,茨城県,栃木県,群馬県,埼玉県,千葉県,東京都,神奈川県,新潟県,富山県,石川県,福井県,山梨県,長野県,岐阜県,静岡県,愛知県,三重県,滋賀県,京都府,大阪府,兵庫県,奈良県,和歌山県,鳥取県,島根県,岡山県,広島県,山口県,徳島県,香川県,愛媛県,高知県,福岡県,佐賀県,長崎県,熊本県,大分県,宮崎県,鹿児島県,沖縄県'.split(',');
+const CITIES={
+'北海道':'札幌市,函館市,旭川市,釧路市,帯広市,北見市,小樽市,苫小牧市,室蘭市,江別市,千歳市,岩見沢市,網走市,留萌市,稚内市,美唄市,紋別市,士別市,名寄市,三笠市',
+'青森県':'青森市,弘前市,八戸市,黒石市,五所川原市,十和田市,三沢市,むつ市,つがる市,平川市',
+'岩手県':'盛岡市,宮古市,大船渡市,花巻市,北上市,久慈市,遠野市,一関市,陸前高田市,釜石市,二戸市,八幡平市,奥州市,滝沢市',
+'宮城県':'仙台市,石巻市,塩竈市,気仙沼市,白石市,名取市,角田市,多賀城市,岩沼市,登米市,栗原市,東松島市,大崎市,富谷市',
+'秋田県':'秋田市,能代市,横手市,大館市,男鹿市,湯沢市,鹿角市,由利本荘市,潟上市,大仙市,北秋田市,にかほ市,仙北市',
+'山形県':'山形市,米沢市,鶴岡市,酒田市,新庄市,寒河江市,上山市,村山市,長井市,天童市,東根市,尾花沢市,南陽市',
+'福島県':'福島市,会津若松市,郡山市,いわき市,白河市,須賀川市,喜多方市,相馬市,二本松市,田村市,南相馬市,伊達市,本宮市',
+'茨城県':'水戸市,日立市,土浦市,古河市,石岡市,結城市,龍ケ崎市,下妻市,常総市,常陸太田市,高萩市,北茨城市,笠間市,取手市,牛久市,つくば市,ひたちなか市,鹿嶋市,潮来市,守谷市,常陸大宮市,那珂市,筑西市,坂東市,稲敷市,かすみがうら市,桜川市,神栖市,行方市,鉾田市,つくばみらい市,小美玉市',
+'栃木県':'宇都宮市,足利市,栃木市,佐野市,鹿沼市,日光市,小山市,真岡市,大田原市,矢板市,那須塩原市,さくら市,那須烏山市,下野市',
+'群馬県':'前橋市,高崎市,桐生市,伊勢崎市,太田市,沼田市,館林市,渋川市,藤岡市,富岡市,安中市,みどり市',
+'埼玉県':'さいたま市,川越市,熊谷市,川口市,行田市,秩父市,所沢市,飯能市,加須市,本庄市,東松山市,春日部市,狭山市,羽生市,鴻巣市,深谷市,上尾市,草加市,越谷市,蕨市,戸田市,入間市,朝霞市,志木市,和光市,新座市,桶川市,久喜市,北本市,八潮市,富士見市,三郷市,蓮田市,坂戸市,幸手市,鶴ヶ島市,日高市,吉川市,ふじみ野市,白岡市',
+'千葉県':'千葉市,銚子市,市川市,船橋市,館山市,木更津市,松戸市,野田市,茂原市,成田市,佐倉市,東金市,旭市,習志野市,柏市,勝浦市,市原市,流山市,八千代市,我孫子市,鴨川市,鎌ケ谷市,君津市,富津市,浦安市,四街道市,袖ケ浦市,八街市,印西市,白井市,富里市,南房総市,匝瑳市,香取市,山武市,いすみ市,大網白里市',
+'東京都':'千代田区,中央区,港区,新宿区,文京区,台東区,墨田区,江東区,品川区,目黒区,大田区,世田谷区,渋谷区,中野区,杉並区,豊島区,北区,荒川区,板橋区,練馬区,足立区,葛飾区,江戸川区,八王子市,立川市,武蔵野市,三鷹市,青梅市,府中市,昭島市,調布市,町田市,小金井市,小平市,日野市,東村山市,国分寺市,国立市,福生市,狛江市,東大和市,清瀬市,東久留米市,武蔵村山市,多摩市,稲城市,羽村市,あきる野市,西東京市',
+'神奈川県':'横浜市,川崎市,相模原市,横須賀市,平塚市,鎌倉市,藤沢市,小田原市,茅ヶ崎市,逗子市,三浦市,秦野市,厚木市,大和市,伊勢原市,海老名市,座間市,南足柄市,綾瀬市',
+'新潟県':'新潟市,長岡市,三条市,柏崎市,新発田市,小千谷市,加茂市,十日町市,見附市,村上市,燕市,糸魚川市,妙高市,五泉市,上越市,阿賀野市,佐渡市,魚沼市,南魚沼市,胎内市',
+'富山県':'富山市,高岡市,魚津市,氷見市,滑川市,黒部市,砺波市,小矢部市,南砺市,射水市',
+'石川県':'金沢市,七尾市,小松市,輪島市,珠洲市,加賀市,羽咋市,かほく市,白山市,能美市,野々市市',
+'福井県':'福井市,敦賀市,小浜市,大野市,勝山市,鯖江市,あわら市,越前市,坂井市',
+'山梨県':'甲府市,富士吉田市,都留市,山梨市,大月市,韮崎市,南アルプス市,北杜市,甲斐市,笛吹市,上野原市,甲州市,中央市',
+'長野県':'長野市,松本市,上田市,岡谷市,飯田市,諏訪市,須坂市,小諸市,伊那市,駒ヶ根市,中野市,大町市,飯山市,茅野市,塩尻市,佐久市,千曲市,東御市,安曇野市',
+'岐阜県':'岐阜市,大垣市,高山市,多治見市,関市,中津川市,美濃市,瑞浪市,羽島市,恵那市,美濃加茂市,土岐市,各務原市,可児市,山県市,瑞穂市,飛騨市,本巣市,郡上市,下呂市,海津市',
+'静岡県':'静岡市,浜松市,沼津市,熱海市,三島市,富士宮市,伊東市,島田市,富士市,磐田市,焼津市,掛川市,藤枝市,御殿場市,袋井市,下田市,裾野市,湖西市,伊豆市,御前崎市,菊川市,伊豆の国市,牧之原市',
+'愛知県':'名古屋市,豊橋市,岡崎市,一宮市,瀬戸市,半田市,春日井市,豊川市,津島市,碧南市,刈谷市,豊田市,安城市,西尾市,蒲郡市,犬山市,常滑市,江南市,小牧市,稲沢市,新城市,東海市,大府市,知多市,知立市,尾張旭市,高浜市,岩倉市,豊明市,日進市,田原市,愛西市,清須市,北名古屋市,弥富市,みよし市,あま市,長久手市',
+'三重県':'津市,四日市市,伊勢市,松阪市,桑名市,鈴鹿市,名張市,尾鷲市,亀山市,鳥羽市,熊野市,いなべ市,志摩市,伊賀市',
+'滋賀県':'大津市,彦根市,長浜市,近江八幡市,草津市,守山市,栗東市,甲賀市,野洲市,湖南市,高島市,東近江市,米原市',
+'京都府':'京都市,福知山市,舞鶴市,綾部市,宇治市,宮津市,亀岡市,城陽市,向日市,長岡京市,八幡市,京田辺市,京丹後市,南丹市,木津川市',
+'大阪府':'大阪市,堺市,岸和田市,豊中市,池田市,吹田市,泉大津市,高槻市,貝塚市,守口市,枚方市,茨木市,八尾市,泉佐野市,富田林市,寝屋川市,河内長野市,松原市,大東市,和泉市,箕面市,柏原市,羽曳野市,門真市,摂津市,高石市,藤井寺市,東大阪市,泉南市,四條畷市,交野市,大阪狭山市,阪南市',
+'兵庫県':'神戸市,姫路市,尼崎市,明石市,西宮市,洲本市,芦屋市,伊丹市,相生市,豊岡市,加古川市,赤穂市,西脇市,宝塚市,三木市,高砂市,川西市,小野市,三田市,加西市,丹波篠山市,養父市,丹波市,南あわじ市,朝来市,淡路市,宍粟市,加東市,たつの市',
+'奈良県':'奈良市,大和高田市,大和郡山市,天理市,橿原市,桜井市,五條市,御所市,生駒市,香芝市,葛城市,宇陀市',
+'和歌山県':'和歌山市,海南市,橋本市,有田市,御坊市,田辺市,新宮市,紀の川市,岩出市',
+'鳥取県':'鳥取市,米子市,倉吉市,境港市',
+'島根県':'松江市,浜田市,出雲市,益田市,大田市,安来市,江津市,雲南市',
+'岡山県':'岡山市,倉敷市,津山市,玉野市,笠岡市,井原市,総社市,高梁市,新見市,備前市,瀬戸内市,赤磐市,真庭市,美作市,浅口市',
+'広島県':'広島市,呉市,竹原市,三原市,尾道市,福山市,府中市,三次市,庄原市,大竹市,東広島市,廿日市市,安芸高田市,江田島市',
+'山口県':'下関市,宇部市,山口市,萩市,防府市,下松市,岩国市,光市,長門市,柳井市,美祢市,周南市,山陽小野田市',
+'徳島県':'徳島市,鳴門市,小松島市,阿南市,吉野川市,阿波市,美馬市,三好市',
+'香川県':'高松市,丸亀市,坂出市,善通寺市,観音寺市,さぬき市,東かがわ市,三豊市',
+'愛媛県':'松山市,今治市,宇和島市,八幡浜市,新居浜市,西条市,大洲市,伊予市,四国中央市,西予市,東温市',
+'高知県':'高知市,室戸市,安芸市,南国市,土佐市,須崎市,宿毛市,土佐清水市,四万十市,香南市,香美市',
+'福岡県':'北九州市,福岡市,大牟田市,久留米市,直方市,飯塚市,田川市,柳川市,八女市,筑後市,大川市,行橋市,豊前市,中間市,小郡市,筑紫野市,春日市,大野城市,宗像市,太宰府市,古賀市,福津市,うきは市,宮若市,嘉麻市,朝倉市,みやま市,糸島市,那珂川市',
+'佐賀県':'佐賀市,唐津市,鳥栖市,多久市,伊万里市,武雄市,鹿島市,小城市,嬉野市,神埼市',
+'長崎県':'長崎市,佐世保市,島原市,諫早市,大村市,平戸市,松浦市,対馬市,壱岐市,五島市,西海市,雲仙市,南島原市',
+'熊本県':'熊本市,八代市,人吉市,荒尾市,水俣市,玉名市,山鹿市,菊池市,宇土市,上天草市,宇城市,阿蘇市,天草市,合志市',
+'大分県':'大分市,別府市,中津市,日田市,佐伯市,臼杵市,津久見市,竹田市,豊後高田市,杵築市,宇佐市,豊後大野市,由布市,国東市',
+'宮崎県':'宮崎市,都城市,延岡市,日南市,小林市,日向市,串間市,西都市,えびの市',
+'鹿児島県':'鹿児島市,鹿屋市,枕崎市,阿久根市,出水市,指宿市,西之表市,垂水市,薩摩川内市,日置市,曽於市,霧島市,いちき串木野市,南さつま市,志布志市,奄美市,南九州市,伊佐市,姶良市',
+'沖縄県':'那覇市,宜野湾市,石垣市,浦添市,名護市,糸満市,沖縄市,豊見城市,うるま市,宮古島市,南城市'
+};
+
+// ── Navigation ──
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('scr-'+id).classList.add('active');
+  window.scrollTo(0,0);
+  renderCurrentScreen();
+}
+function renderCurrentScreen(){
+  const active=document.querySelector('.screen.active');
+  if(!active)return;
+  const id=active.id.replace('scr-','');
+  if(id==='home')renderHome();
+  else if(id==='input')renderInput();
+  else if(id==='result')renderResult();
+  else if(id==='share')renderShareScreen();
+  updateAllText();
+}
+
+// ── Mode ──
+function setMode(m){
+  mode=m;
+  document.querySelectorAll('.mb').forEach((b,i)=>b.classList.toggle('on',i===m));
+  const active=document.querySelector('.screen.active');
+  if(active&&active.id==='scr-input'){renderPartnerSection();updateAdNote();}
+  else if(active&&active.id==='scr-result'){renderResult();}
+}
+
+// ── Home ──
+function renderHome(){
+  renderMirrorCards();
+  startMirrorAnim();
+}
+function renderMirrorCards(){
+  const colors=['#FFD700','#87CEEB','#98FB98'];
+  const icons=['☀','☽','↑'];
+  const titles=[t('sun'),t('moon'),t('asc')];
+  const hooks={
+    ja:['「あなたってどんな人？」と聞かれた時に出てくる自分','なぜあの人といると安心するのか。なぜ孤独を感じるのか。','「初対面の自分」と「本当の自分」がなぜ違うのかの答え'],
+    en:['The "you" that shows when someone asks who you are','Why you feel safe with some people — and lonely with others','The answer to why your first impression differs from your true self'],
+    es:['El "tú" que aparece cuando alguien pregunta quién eres','Por qué te sientes seguro con algunas personas y solo con otras','La respuesta a por qué tu primera impresión difiere de tu verdadero yo']
+  };
+  const bodies={
+    ja:['生まれた日で決まる魂の核心。「太陽だけ知っている」は、人を顔だけで判断しているのと同じです。','「月星座」を知らずに人間関係を語るのは、地図なしで深海を泳ぐようなもの。感情パターン・本当の安らぎ場・無意識の反応——すべてここに刻まれています。','生まれた時刻と場所で決まる「世界への入り口」。なぜ誤解されるのか、なぜ第一印象と中身が違うと言われるのかが科学的に説明できます。'],
+    en:['The core of your soul. Knowing only your Sun sign is like judging a person only by their face.','Discussing relationships without knowing your Moon sign is like swimming the deep ocean without a map. Your emotional patterns are all encoded here.','Determined by birth time and place. This reveals why you\'re misunderstood and why people say you\'re different from your first impression.'],
+    es:['El núcleo de tu alma. Conocer solo tu signo solar es como juzgar a una persona solo por su cara.','Hablar de relaciones sin conocer tu signo lunar es como nadar en el océano profundo sin mapa.','Determinado por hora y lugar. Revela por qué eres malentendido.']
+  };
+  const hk=hooks[lang]||hooks.ja;
+  const bd=bodies[lang]||bodies.en;
+  document.getElementById('mirror-cards').innerHTML=titles.map((title,i)=>`
+    <div style="background:var(--card);border:1px solid ${colors[i]}59;border-radius:16px;padding:18px;margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
+        <div style="width:44px;height:44px;border-radius:50%;background:${colors[i]}22;border:1px solid ${colors[i]}88;display:flex;align-items:center;justify-content:center;font-size:22px;color:${colors[i]}">${icons[i]}</div>
+        <div><div style="font-size:16px;color:${colors[i]};font-weight:500;letter-spacing:1px">${title}</div></div>
+      </div>
+      <div style="background:${colors[i]}18;border:1px solid ${colors[i]}33;border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:13px;color:${colors[i]}ee;font-style:italic;line-height:1.6">❝ ${hk[i]}</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.8">${bd[i]}</div>
+    </div>`).join('');
+}
+
+// ── Mirror Animation ──
+let animFrame=null;
+function startMirrorAnim(){
+  const c=document.getElementById('mirrorCanvas');if(!c)return;
+  const ctx=c.getContext('2d');
+  const w=c.width,h=c.height;
+  let t=0;
+  const stars=Array.from({length:40},()=>({x:Math.random(),y:Math.random(),r:Math.random()*.8+.2,op:Math.random()*.4+.2}));
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    const grd=ctx.createRadialGradient(w/2,h*.4,0,w/2,h/2,w*.55);
+    grd.addColorStop(0,'#2A0A5C');grd.addColorStop(1,'#0A0C1C');
+    ctx.fillStyle=grd;ctx.fillRect(0,0,w,h);
+    stars.forEach(s=>{ctx.beginPath();ctx.arc(s.x*w,s.y*h,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${s.op*(0.6+0.4*Math.sin(t*2+s.x*10))})`;ctx.fill()});
+    // Sun
+    const sa=t*Math.PI*2;const sx=w/2+w*.28*Math.cos(sa),sy=h/2+h*.3*Math.sin(sa);
+    ctx.beginPath();ctx.arc(sx,sy,10,0,Math.PI*2);ctx.fillStyle='rgba(255,215,0,.15)';ctx.fill();
+    ctx.beginPath();ctx.arc(sx,sy,6,0,Math.PI*2);const sg=ctx.createRadialGradient(sx,sy,0,sx,sy,6);sg.addColorStop(0,'#fff');sg.addColorStop(1,'#FFD700');ctx.fillStyle=sg;ctx.fill();
+    // Moon
+    const ma=t*Math.PI*2*.618+Math.PI*.85;const mx=w/2+w*.3*Math.cos(ma),my=h/2+h*.26*Math.sin(ma);
+    ctx.beginPath();ctx.arc(mx,my,7,0,Math.PI*2);ctx.fillStyle='rgba(220,239,247,.85)';ctx.fill();
+    ctx.beginPath();ctx.arc(mx+3.5,my-1.5,5.5,0,Math.PI*2);ctx.fillStyle='#0D0820';ctx.fill();
+    // Center star
+    ctx.fillStyle=`rgba(201,168,76,${.4+.15*Math.sin(t*3)})`;ctx.font='16px serif';ctx.textAlign='center';ctx.fillText('✦',w/2,h/2+6);
+    t+=0.008;animFrame=requestAnimationFrame(draw);
+  }
+  if(animFrame)cancelAnimationFrame(animFrame);draw();
+}
+
+// ── Input ──
+function buildPersonSection(prefix,isPartner){
+  const dateId=prefix+'date',timeId=prefix+'time',countryId=prefix+'country',prefId=prefix+'pref',cityId=prefix+'city';
+  const dateObj=isPartner?bDate:aDate;const timeObj=isPartner?bTime:aTime;
+  const cIdx=isPartner?bCountry:aCountry;const pIdx=isPartner?bPref:aPref;const cityIdx=isPartner?bCity:aCity;
+  const countries=(COUNTRIES[lang]||COUNTRIES.en);
+  const isJapan=cIdx===0;
+  const worldCities=WORLD_CITIES[cIdx]?WORLD_CITIES[cIdx].split(','):[];
+  return `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+      <div>
+        <div class="lbl">📅 ${t('birthDate')}</div>
+        <input type="date" class="ibox" id="${dateId}" value="${dateObj.y}-${String(dateObj.m).padStart(2,'0')}-${String(dateObj.d).padStart(2,'0')}" onchange="setDate('${prefix}',this.value)">
+      </div>
+      <div>
+        <div class="lbl">🕐 ${t('birthTime')}</div>
+        <input type="time" class="ibox" id="${timeId}" value="${String(timeObj.h).padStart(2,'0')}:${String(timeObj.min).padStart(2,'0')}" onchange="setTime('${prefix}',this.value)">
+        <div class="note">${t('timeNote')}</div>
+      </div>
+    </div>
+    <div class="lbl">🌐 ${t('country')}</div>
+    <select class="ibox" id="${countryId}" onchange="setCountry('${prefix}',this.value)">
+      ${countries.map((c,i)=>`<option value="${i}" ${i===cIdx?'selected':''}>${c}</option>`).join('')}
+    </select>
+    ${isJapan?`
+      <div class="lbl">📍 ${t('prefecture')}</div>
+      <select class="ibox" id="${prefId}" onchange="setPref('${prefix}',this.value)">
+        <option value="-1">${t('selectPref')}</option>
+        ${PREFS.map((p,i)=>`<option value="${i}" ${i===pIdx?'selected':''}>${p}</option>`).join('')}
+      </select>
+      ${pIdx>=0?`
+        <div class="lbl">🏙 ${t('city')}</div>
+        <select class="ibox" id="${cityId}" onchange="setCity('${prefix}',this.value)">
+          <option value="-1">${t('selectCity')}</option>
+          ${(CITIES[PREFS[pIdx]]||'').split(',').filter(Boolean).map((c,i)=>`<option value="${i}" ${i===cityIdx?'selected':''}>${c}</option>`).join('')}
+        </select>`:''}`
+    :worldCities.length?`
+      <div class="lbl">🏙 ${t('city')}</div>
+      <select class="ibox" id="${cityId}" onchange="setCity('${prefix}',this.value)">
+        <option value="-1">${t('selectCity2')}</option>
+        ${worldCities.map((c,i)=>`<option value="${i}" ${i===cityIdx?'selected':''}>${c}</option>`).join('')}
+      </select>`:''}
+  `;
+}
+function renderInput(){
+  document.getElementById('inp-you').innerHTML=buildPersonSection('a',false);
+  renderPartnerSection();updateAdNote();
+}
+function renderPartnerSection(){
+  const pp=document.getElementById('inp-partner');
+  if(mode>0){pp.style.display='block';document.getElementById('inp-partner-fields').innerHTML=buildPersonSection('b',true);}
+  else{pp.style.display='none';}
+}
+function updateAdNote(){
+  const el=document.querySelector('#scr-input .ad-note');
+  if(el)el.innerHTML=(mode===0?t('adNote'):t('adCompatNote')).replace(/\\n/g,'<br>');
+}
+function setDate(p,v){const[y,m,d]=v.split('-').map(Number);if(p==='a')aDate={y,m,d};else bDate={y,m,d}}
+function setTime(p,v){const[h,min]=v.split(':').map(Number);if(p==='a')aTime={h,min};else bTime={h,min}}
+function setCountry(p,v){const i=parseInt(v);if(p==='a'){aCountry=i;aPref=-1;aCity=-1}else{bCountry=i;bPref=-1;bCity=-1}renderInput()}
+function setPref(p,v){const i=parseInt(v);if(p==='a'){aPref=i;aCity=-1}else{bPref=i;bCity=-1}renderInput()}
+function setCity(p,v){const i=parseInt(v);if(p==='a')aCity=i;else bCity=i}
+
+function doReflect(){
+  aSi=sunIdx(aDate.y,aDate.m,aDate.d);
+  aMi=moonIdx(aDate.y,aDate.m,aDate.d);
+  aAi=ascIdx(aDate.y,aDate.m,aDate.d,aTime.h,aTime.min);
+  bSi=sunIdx(bDate.y,bDate.m,bDate.d);
+  bMi=moonIdx(bDate.y,bDate.m,bDate.d);
+  bAi=ascIdx(bDate.y,bDate.m,bDate.d,bTime.h,bTime.min);
+  unlocked=false;go('result');
+}
+
+// ── Result ──
+function renderResult(){
+  document.getElementById('result-title').textContent=mode===0?t('resultTitle'):t('compatTitle');
+  document.querySelectorAll('.mb').forEach((b,i)=>b.classList.toggle('on',i===mode));
+  if(mode===0)renderSelfResult();
+  else renderCompatResult();
+}
+function renderSelfResult(){
+  const colors=['#FFD700','#87CEEB','#98FB98'];
+  const icons=['☀','☽','↑'];
+  const labels=[t('mirrorOne'),t('mirrorTwo'),t('mirrorThree')];
+  const types=[t('sun'),t('moon'),t('asc')];
+  const idxs=[aSi,aMi,aAi];
+  let html=`
+    <div class="rcard">
+      <div class="rlbl">${labels[0]}</div>
+      <div class="rsign">
+        <span style="font-size:32px;color:${colors[0]}">${icons[0]}</span>
+        <div><div style="font-size:11px;color:rgba(255,255,255,.38)">${types[0]}</div>
+        <div style="display:flex;align-items:center;gap:6px"><span style="font-size:18px;color:${colors[0]}">${SYMS[idxs[0]]}</span><span style="font-size:24px;color:${colors[0]};font-weight:300">${signName(idxs[0])}</span></div></div>
+      </div>
+      <div class="rtext">${getReading(idxs[0])}</div>
+    </div>`;
+  if(!unlocked){
+    html+=`<div style="text-align:center;font-size:12px;color:rgba(255,255,255,.5);padding:8px 0 12px">${t('adNote').replace(/\\n/g,'<br>')}</div>
+    <button class="adbtn" onclick="simulateAd()">${t('watchAd')}</button>`;
+  } else {
+    for(let i=1;i<3;i++){
+      html+=`<div class="rcard"><div class="rlbl">${labels[i]}</div>
+        <div class="rsign"><span style="font-size:32px;color:${colors[i]}">${icons[i]}</span>
+        <div><div style="font-size:11px;color:rgba(255,255,255,.38)">${types[i]}</div>
+        <div style="display:flex;align-items:center;gap:6px"><span style="font-size:18px;color:${colors[i]}">${SYMS[idxs[i]]}</span><span style="font-size:24px;color:${colors[i]};font-weight:300">${signName(idxs[i])}</span></div></div></div>
+        <div class="rtext">${getReading(idxs[i])}</div></div>`;
+    }
+    html+=`<div class="intcard">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+        <span style="color:var(--gold);font-size:14px">✦</span>
+        <span style="font-size:14px;color:var(--gold);letter-spacing:1px">${t('intTitle')}</span>
+      </div>
+      <div style="height:.5px;background:var(--glass);margin-bottom:12px"></div>
+      <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.9">${integratedMsg(aSi,aMi,aAi).replace(/\\n/g,'<br><br>')}</div>
+    </div>`;
+    html+=renderHoroscope();
+    html+=renderTodaysSky();
+  }
+  document.getElementById('result-body').innerHTML=html;
+  if(unlocked)drawWheel();
+}
+
+function renderCompatResult(){
+  const cp=compat(aSi,aMi,bSi,bMi);
+  let html='';
+  if(!unlocked){
+    html+=`<div style="display:flex;gap:10px;margin-bottom:16px">
+      ${personCard(t('you'),'#C9A84C')}
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 4px">
+        <div style="font-size:28px;color:var(--gold)">${mode===1?'∞':'♡'}</div>
+        <div style="font-size:10px;color:var(--gold-dim)">${mode===1?'soul':'love'}</div>
+      </div>
+      ${personCard(t('partner'),'#87CEEB')}
+    </div>
+    <div style="text-align:center;font-size:12px;color:rgba(255,255,255,.5);padding:8px 0 12px">${t('adCompatNote')}</div>
+    <button class="adbtn" onclick="simulateAd()">${t('watchAdCompat')}</button>`;
+  } else {
+    html+=`<div style="display:flex;gap:10px;margin-bottom:16px">
+      ${personCard(t('you'),'#C9A84C')}
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 4px">
+        <div style="font-size:28px;color:var(--gold)">${mode===1?'∞':'♡'}</div>
+        <div style="font-size:10px;color:var(--gold-dim)">${mode===1?'soul':'love'}</div>
+      </div>
+      ${personCard(t('partner'),'#87CEEB')}
+    </div>`;
+    html+=`<div class="card"><div class="compat-gauge">
+      <div style="font-size:12px;color:rgba(255,255,255,.54);letter-spacing:2px;margin-bottom:16px">${t('resonance')}</div>
+      <canvas id="gaugeCanvas" width="160" height="160" style="display:block;margin:0 auto"></canvas>
+      <div class="score-big">${cp.total}%</div>
+      <div style="font-size:13px;color:var(--gold);letter-spacing:1px;margin-top:4px">${compatLabel(cp.total)}</div>
+    </div></div>`;
+    html+=`<div class="card">
+      ${scoreBar(t('sunH'),cp.sun,'☀')}
+      ${scoreBar(t('moonR'),cp.moon,'☽')}
+      ${scoreBar(t('elemA'),cp.elem,'✦')}
+    </div>`;
+    const msgColor=mode===1?'var(--gold)':'#FF87A0';
+    const msgBorder=mode===1?'rgba(201,168,76,.4)':'rgba(255,135,160,.4)';
+    const msgTitle=mode===1?t('soulMsg'):t('loveMsg');
+    const msgIcon=mode===1?'∞':'♡';
+    html+=`<div style="background:var(--card);border:1px solid ${msgBorder};border-radius:14px;padding:18px;margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <span style="color:${msgColor};font-size:16px">${msgIcon}</span>
+        <span style="font-size:13px;color:${msgColor};letter-spacing:1px;font-weight:600">${msgTitle}</span>
+      </div>
+      <div style="height:.5px;background:var(--glass);margin-bottom:10px"></div>
+      <div style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.9">${soulmateMsg(aSi,aMi,bSi,bMi,mode===2).replace(/\\n/g,'<br><br>')}</div>
+    </div>`;
+  }
+  document.getElementById('result-body').innerHTML=html;
+  if(unlocked)drawGauge(cp.total);
+}
+function personCard(label,color){
+  const si=label===t('you')?aSi:bSi;
+  const mi=label===t('you')?aMi:bMi;
+  const ai=label===t('you')?aAi:bAi;
+  return `<div class="pcard" style="flex:1;border-color:${color}66">
+    <div style="font-size:11px;color:${color}aa;letter-spacing:1px;text-align:center;margin-bottom:8px">${label}</div>
+    <div class="prow"><span style="font-size:13px">☀</span><span style="font-size:11px;color:${color}">${SYMS[si]}</span><span style="font-size:11px;color:rgba(255,255,255,.7)">${signName(si)}</span></div>
+    <div class="prow"><span style="font-size:13px">☽</span><span style="font-size:11px;color:${color}">${SYMS[mi]}</span><span style="font-size:11px;color:rgba(255,255,255,.7)">${signName(mi)}</span></div>
+    <div class="prow"><span style="font-size:13px">↑</span><span style="font-size:11px;color:${color}">${SYMS[ai]}</span><span style="font-size:11px;color:rgba(255,255,255,.7)">${signName(ai)}</span></div>
+  </div>`;
+}
+function scoreBar(label,score,icon){
+  return `<div style="margin-bottom:10px">
+    <div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.6);margin-bottom:6px"><span>${icon} ${label}</span><span>${score}%</span></div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${score}%"></div></div>
+  </div>`;
+}
+
+// ── Horoscope Wheel ──
+function renderHoroscope(){
+  const elemData=lang==='ja'?
+    [['🔥','火','牡羊・獅子・射手','情熱・行動・創造力','#CC4444'],['🌿','地','牡牛・乙女・山羊','安定・実直・忍耐','#44AA44'],['🌬','風','双子・天秤・水瓶','知性・コミュニケーション・自由','#4488CC'],['🌊','水','蟹・蠍・魚','感情・直感・共感力','#334488']]:
+    lang==='en'?
+    [['🔥','Fire','Aries · Leo · Sagittarius','Passion · Action · Creativity','#CC4444'],['🌿','Earth','Taurus · Virgo · Capricorn','Stability · Honesty · Patience','#44AA44'],['🌬','Air','Gemini · Libra · Aquarius','Intellect · Communication · Freedom','#4488CC'],['🌊','Water','Cancer · Scorpio · Pisces','Emotion · Intuition · Empathy','#334488']]:
+    [['🔥','Fuego','Aries · Leo · Sagitario','Pasión · Acción · Creatividad','#CC4444'],['🌿','Tierra','Tauro · Virgo · Capricornio','Estabilidad · Honestidad · Paciencia','#44AA44'],['🌬','Aire','Géminis · Libra · Acuario','Intelecto · Comunicación · Libertad','#4488CC'],['🌊','Agua','Cáncer · Escorpio · Piscis','Emoción · Intuición · Empatía','#334488']];
+  return `
+  <div style="height:.5px;background:var(--gold-dim);margin:24px 0"></div>
+  <div style="text-align:center;margin-bottom:16px">
+    <div style="font-size:18px;color:var(--gold);letter-spacing:2px">${t('birthChart')}</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.38)">${t('natalChart')}</div>
+  </div>
+  <canvas id="wheelCanvas" width="300" height="300" style="display:block;margin:0 auto"></canvas>
+  <div class="wi" style="margin-top:16px">
+    ${wiItem('☀',t('sun'),aSi,'#FFD700')}
+    ${wiItem('☽',t('moon'),aMi,'#87CEEB')}
+    ${wiItem('↑','ASC',aAi,'#98FB98')}
+  </div>
+  <div style="background:var(--card);border:1px solid var(--glass);border-radius:12px;padding:14px;margin-bottom:14px">
+    <div style="font-size:12px;color:var(--gold);margin-bottom:10px">◆ ${t('elemTitle')}</div>
+    ${elemData.map(e=>`<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px">
+      <div style="width:12px;height:12px;background:${e[4]};border-radius:3px;flex-shrink:0;margin-top:2px"></div>
+      <span style="font-size:14px">${e[0]}</span>
+      <div style="font-size:11px">
+        <div style="color:#fff;font-weight:500">${e[1]}</div>
+        <div style="color:rgba(255,255,255,.6)">${e[2]}</div>
+        <div style="color:rgba(255,255,255,.38)">${e[3]}</div>
+      </div>
+    </div>`).join('')}
+  </div>`;
+}
+function wiItem(sym,label,idx,col){
+  return `<div class="wi-i">
+    <div style="font-size:16px;color:${col}">${sym}</div>
+    <div style="font-size:10px;color:rgba(255,255,255,.38);margin:2px 0">${label}</div>
+    <div style="color:${col};font-size:12px">${SYMS[idx]} ${(idx*30+15)%30}°</div>
+  </div>`;
+}
+function drawWheel(){
+  const c=document.getElementById('wheelCanvas');if(!c)return;
+  const ctx=c.getContext('2d');const w=c.width,h=c.height,cx=w/2,cy=h/2;
+  const oR=w*.46,iR=w*.33,cR=w*.27;
+  const EC=['#CC3333','#44AA44','#3366BB','#2233AA','#CC3333','#44AA44','#3366BB','#2233AA','#CC3333','#44AA44','#3366BB','#2233AA'];
+  // Outer glow
+  ctx.beginPath();ctx.arc(cx,cy,oR+8,0,Math.PI*2);ctx.fillStyle='rgba(201,168,76,.12)';ctx.filter='blur(8px)';ctx.fill();ctx.filter='none';
+  // Segments
+  for(let i=0;i<12;i++){
+    const sa=(i*30-90)*Math.PI/180,sw=30*Math.PI/180;
+    const sActual=(i+aAi)%12;
+    ctx.beginPath();ctx.moveTo(cx+iR*Math.cos(sa),cy+iR*Math.sin(sa));
+    ctx.arc(cx,cy,oR,sa,sa+sw);ctx.arc(cx,cy,iR,sa+sw,sa,-1);ctx.closePath();
+    ctx.fillStyle=EC[sActual]+'99';ctx.fill();
+    ctx.beginPath();ctx.moveTo(cx+iR*Math.cos(sa),cy+iR*Math.sin(sa));ctx.lineTo(cx+oR*Math.cos(sa),cy+oR*Math.sin(sa));
+    ctx.strokeStyle='rgba(10,12,28,.8)';ctx.lineWidth=1.2;ctx.stroke();
+    const ma=sa+sw/2,sr=(oR+iR)/2;
+    ctx.fillStyle='rgba(255,255,255,.9)';ctx.font='11px serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(SYMS[sActual],cx+sr*Math.cos(ma),cy+sr*Math.sin(ma));
+  }
+  // Rings
+  ctx.beginPath();ctx.arc(cx,cy,oR,0,Math.PI*2);ctx.strokeStyle='rgba(201,168,76,.7)';ctx.lineWidth=1.8;ctx.stroke();
+  ctx.beginPath();ctx.arc(cx,cy,iR,0,Math.PI*2);ctx.strokeStyle='rgba(201,168,76,.25)';ctx.lineWidth=0.8;ctx.stroke();
+  // Dots
+  for(let i=0;i<12;i++){const a=(i*30-90)*Math.PI/180;ctx.beginPath();ctx.arc(cx+iR*Math.cos(a),cy+iR*Math.sin(a),2.5,0,Math.PI*2);ctx.fillStyle='rgba(201,168,76,.6)';ctx.fill();}
+  // Center
+  const grd=ctx.createRadialGradient(cx,cy,0,cx,cy,cR);grd.addColorStop(0,'#1A0840');grd.addColorStop(1,'#0A0C1C');
+  ctx.beginPath();ctx.arc(cx,cy,cR,0,Math.PI*2);ctx.fillStyle=grd;ctx.fill();
+  ctx.beginPath();ctx.arc(cx,cy,cR,0,Math.PI*2);ctx.strokeStyle='rgba(201,168,76,.2)';ctx.lineWidth=1;ctx.stroke();
+  ctx.fillStyle='rgba(255,255,255,.24)';ctx.font='10px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(lang==='ja'?'魂の':'Soul',cx,cy-7);ctx.fillText(lang==='ja'?'星図':'Chart',cx,cy+7);
+  // ASC arrow
+  ctx.beginPath();ctx.moveTo(cx,cy-iR*.05);ctx.lineTo(cx,cy-oR+2);ctx.strokeStyle='rgba(68,204,136,.85)';ctx.lineWidth=1.8;ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,cy-oR-4);ctx.lineTo(cx-5,cy-oR+7);ctx.lineTo(cx+5,cy-oR+7);ctx.closePath();ctx.fillStyle='#44CC88';ctx.fill();
+  ctx.fillStyle='#44CC88';ctx.font='bold 9px sans-serif';ctx.textAlign='center';ctx.fillText('ASC',cx,cy-oR-16);
+  // Planets
+  drawPlanetOnWheel(ctx,cx,cy,aSi,aAi,cR,iR,'☀','#FFD700',19);
+  drawPlanetOnWheel(ctx,cx,cy,aMi,aAi,cR,iR,'☽','#87CEEB',17);
+}
+function drawPlanetOnWheel(ctx,cx,cy,sIdx,aIdx,cR,iR,sym,col,fs){
+  const slot=(sIdx-aIdx+12)%12;const a=(slot*30+15-90)*Math.PI/180;const r=(cR+iR)*.5;
+  const px=cx+r*Math.cos(a),py=cy+r*Math.sin(a);
+  ctx.beginPath();ctx.arc(px,py,fs*.9,0,Math.PI*2);ctx.fillStyle=col+'44';ctx.fill();
+  ctx.fillStyle=col;ctx.font=fs+'px serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(sym,px,py);
+}
+
+// ── Gauge ──
+function drawGauge(score){
+  const c=document.getElementById('gaugeCanvas');if(!c)return;
+  const ctx=c.getContext('2d');const w=c.width,h=c.height,cx=w/2,cy=h/2,r=w/2-8;
+  ctx.clearRect(0,0,w,h);
+  ctx.beginPath();ctx.arc(cx,cy,r,-Math.PI*.8,Math.PI*.8);ctx.strokeStyle='rgba(255,255,255,.12)';ctx.lineWidth=12;ctx.lineCap='round';ctx.stroke();
+  const grd=ctx.createLinearGradient(0,0,w,0);grd.addColorStop(0,'#FFD700');grd.addColorStop(.5,'#87CEEB');grd.addColorStop(1,'#98FB98');
+  ctx.beginPath();ctx.arc(cx,cy,r,-Math.PI*.8,-Math.PI*.8+Math.PI*1.6*(score/100));ctx.strokeStyle=grd;ctx.lineWidth=12;ctx.lineCap='round';ctx.stroke();
+}
+
+// ── Today's Sky ──
+function renderTodaysSky(){
+  const planets=todayPlanets();
+  const asps=planetAspects(planets,aSi,aMi,aAi);
+  const moonLon=planets.find(p=>p.key==='Moon').lon;
+  const moonSignIdx=Math.floor(moonLon/30)%12;
+  const moonSignName=signName(moonSignIdx);
+  const harm=asps.filter(a=>a.isH).length;
+  const chall=asps.filter(a=>!a.isH).length;
+  let energyMsg='';
+  if(lang==='ja'){
+    const base=`今日の月は${moonSignName}にあります。`;
+    if(harm>chall)energyMsg=`${base}${harm}つの調和的なアスペクトが活性化しており、星のエネルギーはあなたを後押ししています。`;
+    else if(chall>harm)energyMsg=`${base}${chall}つの挑戦的なアスペクトが活性化中。その緊張が変化のきっかけになります。`;
+    else energyMsg=`${base}調和と挑戦が同数活性化されており、意識的な選択がカギになる日です。`;
+  } else if(lang==='en'){
+    if(harm>chall)energyMsg=`Moon in ${moonSignName} today. ${harm} harmonious aspects active — the stars are working in your favor.`;
+    else if(chall>harm)energyMsg=`Moon in ${moonSignName} today. ${chall} challenging aspects active. Tension can be transformed into growth.`;
+    else energyMsg=`Moon in ${moonSignName} today. Balance your choices with awareness.`;
+  } else {
+    if(harm>chall)energyMsg=`Luna en ${moonSignName} hoy. ${harm} aspectos armoniosos — las estrellas están de tu lado.`;
+    else if(chall>harm)energyMsg=`Luna en ${moonSignName} hoy. ${chall} aspectos desafiantes. La tensión se convierte en crecimiento.`;
+    else energyMsg=`Luna en ${moonSignName} hoy. Elige conscientemente.`;
+  }
+  const pRows=planets.map(p=>{
+    const sIdx=Math.floor(p.lon/30)%12;const deg=Math.floor(p.lon)%30;
+    const pName=lang==='ja'?p.ja:lang==='en'?p.en:p.es;
+    return `<div class="pcrow"><span style="font-size:16px;width:24px">${p.sym}</span><span style="width:44px;font-size:12px">${pName}</span><span style="font-size:13px;color:var(--gold)">${SYMS[sIdx]}</span><span style="font-size:12px;color:rgba(255,255,255,.6);margin-left:4px">${signName(sIdx)}</span><span style="font-size:11px;color:rgba(255,255,255,.38);margin-left:auto">${deg}°</span></div>`;
+  }).join('');
+  const aspRows=asps.slice(0,5).map(asp=>{
+    const p=asp.p;const pLon=p.lon;const pSIdx=Math.floor(pLon/30)%12;
+    const pName=lang==='ja'?p.ja:lang==='en'?p.en:p.es;
+    const col=asp.isH?'#96FFB4':'#FF9664';
+    return `<div class="asprow" style="color:rgba(255,255,255,.7)">
+      ${p.sym} ${pName} ${signName(pSIdx)} <span style="color:${col}">${asp.aSym} ${asp.aName}</span> ${asp.n.sym} ${asp.n.name}
+      <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:3px">${asp.isH?(lang==='ja'?'星のエネルギーがあなたを後押ししています。':lang==='en'?'The stars are working in your favor.':'Las estrellas están de tu lado.'):(lang==='ja'?'緊張が変化のきっかけになります。':lang==='en'?'Tension becomes opportunity for growth.':'La tensión se convierte en oportunidad.')}</div>
+    </div>`;
+  }).join('');
+  return `
+  <div style="height:.5px;background:var(--gold-dim);margin:24px 0"></div>
+  <div style="text-align:center;margin-bottom:16px">
+    <div style="font-size:17px;color:var(--gold);letter-spacing:3px">${t('todaysSky')}</div>
+    <div style="font-size:10px;color:rgba(255,255,255,.38)">${t('todaysSkyDesc')}</div>
+  </div>
+  <div style="background:var(--card);border:1px solid var(--glass);border-radius:12px;padding:14px;margin-bottom:12px">
+    <div style="font-size:10px;color:rgba(255,255,255,.38);margin-bottom:8px">${t('todaysPlanets')}</div>
+    ${pRows}
+  </div>
+  ${asps.length?`<div style="background:var(--card);border:1px solid var(--glass);border-radius:12px;padding:14px;margin-bottom:12px">
+    <div style="font-size:10px;color:rgba(255,255,255,.38);margin-bottom:8px">${t('influence')}</div>
+    ${aspRows}
+  </div>`:''}
+  <div class="energy-card">
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <span style="font-size:22px">🌙</span>
+      <div><div style="font-size:11px;color:var(--gold);font-weight:600;margin-bottom:4px">${t('todaysEnergy')}</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.7);line-height:1.7">${energyMsg}</div></div>
+    </div>
+  </div>`;
+}
+
+// ── Ad Simulation ──
+function simulateAd(){
+  if(confirm(lang==='ja'?'広告を視聴しました。鑑定を解放します。':lang==='en'?'Ad complete! Unlocking your reading.':'¡Anuncio completado! Desbloqueando tu lectura.')){
+    unlocked=true;renderResult();
+  }
+}
+
+// ── Share ──
+let shareText='';
+function showShare(){
+  const sn=signName(aSi),mn=signName(aMi),an=signName(aAi);
+  const url='https://astralmirrorstudio.github.io/the-third-mirror/app.html';
+  if(mode===0){
+    if(lang==='ja')shareText=`🔮 THE THIRD MIRROR\\n\\n☀ 太陽：${sn}\\n☽ 月：${mn}\\n↑ ASC：${an}\\n\\n太陽星座だけじゃない、本当の自分に出会えるアプリ👇\\n${url}`;
+    else if(lang==='en')shareText=`🔮 THE THIRD MIRROR\\n\\n☀ Sun: ${sn}\\n☽ Moon: ${mn}\\n↑ ASC: ${an}\\n\\nDiscover who you really are 👇\\n${url}`;
+    else shareText=`🔮 THE THIRD MIRROR\\n\\n☀ Sol: ${sn}\\n☽ Luna: ${mn}\\n↑ ASC: ${an}\\n\\nDescubre quién eres realmente 👇\\n${url}`;
+  } else {
+    const bsn=signName(bSi);const cp=compat(aSi,aMi,bSi,bMi);
+    if(lang==='ja')shareText=`${mode===1?'🔮':'♡'} THE THIRD MIRROR\\n\\n${mode===1?'ソウルメイト':'恋愛'}相性\\n${sn} × ${bsn}\\n\\n魂の共鳴度 ${cp.total}%\\n${compatLabel(cp.total)}\\n\\n二人の縁を星が語る👇\\n${url}`;
+    else if(lang==='en')shareText=`${mode===1?'🔮':'♡'} THE THIRD MIRROR\\n\\n${mode===1?'Soulmate':'Love'} Compatibility\\n${sn} × ${bsn}\\n\\nSoul Resonance: ${cp.total}%\\n${compatLabel(cp.total)}\\n\\nDiscover your connection 👇\\n${url}`;
+    else shareText=`${mode===1?'🔮':'♡'} THE THIRD MIRROR\\n\\nCompatibilidad\\n${sn} × ${bsn}\\n\\nResonancia: ${cp.total}%\\n${compatLabel(cp.total)}\\n\\nDescubre tu conexión 👇\\n${url}`;
+  }
+  go('share');
+}
+function renderShareScreen(){
+  document.getElementById('share-text-display').innerHTML=shareText.replace(/\\n/g,'<br>');
+}
+function copyShare(){
+  const text=shareText.replace(/\\n/g,'\\n');
+  if(navigator.clipboard){navigator.clipboard.writeText(text);}
+  else{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);}
+  showToast(t('copied'));
+}
+function showToast(msg){
+  const el=document.getElementById('toast');el.textContent=msg;el.style.display='block';
+  setTimeout(()=>{el.style.display='none'},3000);
+}
+
+// ── Stars background ──
+function initStars(){
+  const c=document.getElementById('stars');
+  for(let i=0;i<120;i++){
+    const s=document.createElement('div');s.className='star';
+    s.style.cssText=`width:${Math.random()*2+.5}px;height:${Math.random()*2+.5}px;top:${Math.random()*100}%;left:${Math.random()*100}%;animation-delay:${Math.random()*3}s;animation-duration:${2+Math.random()*3}s`;
+    c.appendChild(s);
+  }
+}
+
+// ── PWA Service Worker ──
+if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})})}
+
+// ── Init ──
+window.addEventListener('DOMContentLoaded',()=>{
+  initStars();updateAllText();renderHome();
+});
+</script>
+</body>
+</html>t="THIRD MIRROR">
 <meta name="theme-color" content="#0A0C1C">
 <link rel="manifest" href="manifest.json">
 <title>THE THIRD MIRROR</title>
