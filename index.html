@@ -1,60 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>THE THIRD MIRROR - Celestial Psychology | Authentic Western Astrology App</title>
-  <meta name="description" content="Beyond your Sun sign. Discover your true soul through the Three Mirrors: Sun, Moon, and Ascendant. Soul Resonance and Compatibility analysis included.">
-  <meta name="keywords" content="Astrology, Horoscope, Moon Sign, Ascendant, Natal Chart, Compatibility, Soulmate, Spiritual, Astrology App">
-  <link rel="canonical" href="https://thethirdmirror.app/">
-
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="THE THIRD MIRROR - Celestial Psychology">
-  <meta property="og:description" content="The Sun sign is not the only you. Reflect your true essence through the Three Mirrors.">
-  <meta property="og:url" content="https://thethirdmirror.app/">
-  <meta property="og:image" content="https://thethirdmirror.app/ogp.png">
-  <meta property="og:locale" content="en_US">
-  <meta name="twitter:card" content="summary_large_image">
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "THE THIRD MIRROR - Celestial Psychology",
-    "operatingSystem": "iOS, Android",
-    "applicationCategory": "EntertainmentApplication",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "description": "An authentic Western astrology app to discover your true self through the Three Mirrors: Sun, Moon, and Ascendant.",
-    "inLanguage": ["en", "ja", "es"]
-  }
-  </script>
-
+  <title>THE THIRD MIRROR - 三つの鑑 | Celestial Psychology</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@200;400;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --gold: #C9A84C;
       --gold-dim: rgba(201,168,76,0.35);
       --navy: #0A0C1C;
-      --navy-mid: #10142C;
-      --card: rgba(22,26,50,0.85);
-      --white-soft: rgba(255,255,255,0.85);
+      --white-soft: rgba(255,255,255,0.9);
       --white-dim: rgba(255,255,255,0.5);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
     body {
       background: var(--navy);
       color: var(--white-soft);
-      font-family: 'Cormorant Garamond', 'Noto Serif JP', serif;
+      font-family: 'Noto Serif JP', 'Cormorant Garamond', serif;
       font-weight: 300;
+      line-height: 1.6;
       overflow-x: hidden;
     }
     #stars-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
     section { position: relative; z-index: 1; }
 
+    /* Hero Section */
     .hero {
       min-height: 100dvh;
       display: flex;
@@ -65,104 +39,73 @@
       padding: 60px 24px;
     }
     .hero-eyebrow {
-      font-size: clamp(10px, 2vw, 13px);
-      letter-spacing: .45em;
+      font-size: 12px;
+      letter-spacing: .5em;
       color: var(--gold);
+      margin-bottom: 24px;
       text-transform: uppercase;
-      margin-bottom: 28px;
-      opacity: 0;
-      animation: fadeUp .8s .2s forwards;
     }
     .hero-title {
-      font-size: clamp(42px, 10vw, 96px);
-      font-weight: 300;
-      letter-spacing: .12em;
-      line-height: 1.05;
+      font-size: clamp(40px, 8vw, 80px);
+      font-weight: 200;
+      letter-spacing: .1em;
+      line-height: 1.2;
       color: #fff;
-      opacity: 0;
-      animation: fadeUp .9s .4s forwards;
+      margin-bottom: 20px;
     }
-    .hero-title span { color: var(--gold); }
+    .hero-title span { color: var(--gold); font-weight: 400; }
     .hero-sub {
-      margin-top: 24px;
-      font-size: clamp(14px, 2.5vw, 18px);
+      font-size: clamp(16px, 3vw, 22px);
+      letter-spacing: .1em;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+    .hero-sub-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(14px, 2vw, 18px);
       color: var(--white-dim);
-      letter-spacing: .06em;
-      line-height: 1.9;
-      max-width: 600px;
-      opacity: 0;
-      animation: fadeUp .9s .65s forwards;
+      margin-bottom: 40px;
     }
-    .hero-divider { width: 60px; height: 1px; background: var(--gold-dim); margin: 36px auto; opacity: 0; animation: fadeIn 1s .85s forwards; }
-    .cta-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; opacity: 0; animation: fadeUp .8s 1s forwards; }
+
+    /* Buttons */
+    .cta-container { display: flex; flex-direction: column; gap: 20px; align-items: center; width: 100%; max-width: 400px; }
     .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--gold);
-      color: var(--navy);
-      font-size: 16px;
-      font-weight: 400;
-      letter-spacing: .18em;
+      width: 100%;
       text-decoration: none;
-      padding: 16px 40px;
-      border-radius: 2px;
-      transition: opacity .25s, transform .25s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 18px 24px;
+      border-radius: 4px;
+      transition: all .3s;
+      border: 1px solid var(--gold-dim);
     }
-    .cta-btn:hover { opacity: .85; transform: translateY(-2px); }
-    .scroll-hint { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: .4; animation: bounce 2s infinite; }
-    .scroll-hint span { font-size: 10px; letter-spacing: .2em; color: var(--gold); }
-    .scroll-hint-arrow { width: 1px; height: 36px; background: var(--gold-dim); }
+    .cta-btn .ja { font-size: 16px; letter-spacing: .2em; color: #fff; margin-bottom: 4px; }
+    .cta-btn .en { font-family: 'Cormorant Garamond', serif; font-size: 12px; letter-spacing: .1em; color: var(--gold); text-transform: uppercase; }
+    .btn-web { background: rgba(201, 168, 76, 0.1); border-color: var(--gold); }
+    .btn-web:hover { background: var(--gold); }
+    .btn-web:hover .ja, .btn-web:hover .en { color: var(--navy); }
+    .btn-gp { background: #000; border-color: #444; }
+    .btn-gp:hover { border-color: #fff; }
 
+    /* Mirrors Section */
     .mirrors { padding: 100px 24px; max-width: 1100px; margin: 0 auto; }
-    .section-label { text-align: center; font-size: 11px; letter-spacing: .4em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
-    .section-title { text-align: center; font-size: clamp(28px, 5vw, 48px); font-weight: 300; letter-spacing: .08em; margin-bottom: 64px; color: #fff; }
-    .mirror-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
-    .mirror-card { background: var(--card); border: 1px solid rgba(201,168,76,0.18); border-radius: 16px; padding: 36px 28px; position: relative; overflow: hidden; transition: transform .3s, border-color .3s; }
-    .mirror-card:hover { transform: translateY(-6px); border-color: rgba(201,168,76,0.5); }
-    .mirror-num { font-size: 11px; letter-spacing: .3em; color: var(--gold); margin-bottom: 16px; }
-    .mirror-icon { font-size: 28px; margin-bottom: 14px; }
-    .mirror-name { font-size: 24px; font-weight: 300; color: #fff; letter-spacing: .05em; margin-bottom: 4px; }
-    .mirror-name-ja { font-family: 'Noto Serif JP', serif; font-size: 10px; color: var(--gold-dim); letter-spacing: .1em; margin-bottom: 16px; }
-    .mirror-desc { font-size: 14px; line-height: 1.8; color: var(--white-dim); }
+    .section-title { text-align: center; margin-bottom: 60px; }
+    .section-title h2 { font-size: 32px; letter-spacing: .3em; margin-bottom: 8px; font-weight: 400; }
+    .section-title p { font-family: 'Cormorant Garamond', serif; color: var(--gold); font-size: 14px; letter-spacing: .4em; }
+    
+    .mirror-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .mirror-card { background: rgba(255,255,255,0.03); padding: 40px 30px; border-left: 1px solid var(--gold-dim); }
+    .mirror-card h3 { font-size: 22px; margin-bottom: 10px; font-weight: 400; letter-spacing: .1em; }
+    .mirror-card .en { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: var(--gold); display: block; margin-bottom: 20px; letter-spacing: .1em; }
+    .mirror-card p { font-size: 14px; color: var(--white-dim); line-height: 1.8; }
 
-    .features { padding: 80px 24px; background: linear-gradient(180deg, transparent, rgba(201,168,76,.03), transparent); }
-    .features-inner { max-width: 900px; margin: 0 auto; }
-    .feature-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px; margin-top: 48px; }
-    .feature-item { display: flex; gap: 16px; align-items: flex-start; }
-    .feature-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); margin-top: 7px; flex-shrink: 0; }
-    .feature-item h3 { font-size: 16px; font-weight: 400; color: #fff; margin-bottom: 6px; letter-spacing: .05em; }
-    .feature-item p { font-size: 13px; color: var(--white-dim); line-height: 1.7; }
+    footer { padding: 60px 24px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-note { font-size: 12px; color: var(--gold-dim); margin-bottom: 20px; }
 
-    .compat { padding: 100px 24px; max-width: 800px; margin: 0 auto; text-align: center; }
-    .compat-card { background: var(--card); border: 1px solid var(--gold-dim); border-radius: 20px; padding: 56px 40px; margin-top: 48px; }
-    .compat-score { font-size: 80px; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 8px; }
-    .compat-label { font-size: 11px; letter-spacing: .3em; color: var(--white-dim); margin-bottom: 28px; }
-    .bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-    .bar-label { font-size: 11px; color: var(--white-dim); width: 100px; text-align: left; }
-    .bar-track { flex: 1; height: 4px; background: rgba(255,255,255,.08); border-radius: 2px; overflow: hidden; }
-    .bar-fill { height: 100%; background: linear-gradient(90deg, #7b6aff, #C9A84C, #ff9f6b); transform-origin: left; animation: barGrow 1.4s cubic-bezier(.4,0,.2,1) forwards; transform: scaleX(0); }
-    .bar-val { font-size: 11px; color: var(--gold-dim); width: 36px; text-align: right; }
-
-    .cta-bottom { padding: 120px 24px; text-align: center; }
-    .motto { font-style: italic; font-size: clamp(14px, 2.5vw, 20px); color: var(--gold); letter-spacing: .1em; margin: 32px 0 48px; }
-
-    footer { border-top: 1px solid rgba(255,255,255,.06); padding: 40px 24px; text-align: center; }
-    .footer-links { display: flex; justify-content: center; gap: 32px; margin-bottom: 20px; }
-    .footer-links a { font-size: 11px; letter-spacing: .15em; color: var(--white-dim); text-decoration: none; }
-    footer p { font-size: 10px; color: rgba(255,255,255,.2); }
-
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
-    @keyframes barGrow { to { transform: scaleX(1); } }
-    .reveal { opacity: 0; transform: translateY(32px); transition: opacity .7s ease, transform .7s ease; }
-    .reveal.visible { opacity: 1; transform: none; }
-    .gold-line { width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, var(--gold), transparent); margin: 0 auto 48px; }
-
-    @media (max-width: 600px) {
-      .footer-links { flex-direction: column; gap: 16px; }
-    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; animation: fadeUp 1s forwards; }
   </style>
 </head>
 
@@ -170,149 +113,53 @@
 <canvas id="stars-canvas"></canvas>
 
 <section class="hero">
-  <p class="hero-eyebrow">✦ Authentic Western Astrology ✦</p>
-  <h1 class="hero-title">THE<br><span>THIRD</span><br>MIRROR</h1>
-  <p class="hero-sub">
-    The Sun sign is not the only you.<br>
-    Sun, Moon, and Ascendant—discover the three mirrors that reflect your true essence and soul resonance.
-  </p>
-  <div class="hero-divider"></div>
-  <div class="cta-wrap">
-    <a href="https://astralmirrorstudio.github.io/the-third-mirror/app.html" target="_blank" class="cta-btn" style="background:linear-gradient(135deg,#1A0C2E,#0D0820);border:1.5px solid rgba(201,168,76,.8);color:#C9A84C;">🔮 Try Web App (iOS/Android)</a>
-    <a href="https://play.google.com/store/apps/details?id=com.t3m.thethirdmirror" target="_blank" class="cta-btn" style="background:#000;border-color:#fff;"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" style="height:40px;margin:-6px 0;"></a>
-  </div>
-  <div class="scroll-hint">
-    <div class="scroll-hint-arrow"></div>
-    <span>SCROLL</span>
+  <p class="hero-eyebrow">Celestial Psychology</p>
+  <h1 class="hero-title">THE <span>THIRD</span> MIRROR</h1>
+  <p class="hero-sub">太陽星座だけが、あなたではない。</p>
+  <p class="hero-sub-en">The Sun sign is not the only you.</p>
+
+  <div class="cta-container">
+    <a href="https://astralmirrorstudio.github.io/the-third-mirror/app.html" class="cta-btn btn-web">
+      <span class="ja">WEB版で体験する</span>
+      <span class="en">Launch Web Experience</span>
+    </a>
+    <a href="https://play.google.com/store/apps/details?id=com.t3m.thethirdmirror" class="cta-btn btn-gp">
+      <span class="ja">Android版をダウンロード</span>
+      <span class="en">Download for Android</span>
+    </a>
   </div>
 </section>
 
 <section class="mirrors">
-  <p class="section-label reveal">The Framework</p>
-  <h2 class="section-title reveal">The Three Mirrors</h2>
+  <div class="section-title">
+    <h2>三つの鑑</h2>
+    <p>THE THREE MIRRORS</p>
+  </div>
   <div class="mirror-grid">
-    <article class="mirror-card reveal">
-      <p class="mirror-num">FIRST MIRROR</p>
-      <div class="mirror-icon">☀️</div>
-      <h3 class="mirror-name">Sun Sign</h3>
-      <p class="mirror-name-ja">太陽星座</p>
-      <p class="mirror-desc">Your core consciousness and life purpose. The "Mission" you present to the world.</p>
-    </article>
-    <article class="mirror-card reveal">
-      <p class="mirror-num">SECOND MIRROR</p>
-      <div class="mirror-icon">🌙</div>
-      <h3 class="mirror-name">Moon Sign</h3>
-      <p class="mirror-name-ja">月星座</p>
-      <p class="mirror-desc">Your subconscious self and emotional patterns. The "Inner Child" where your soul finds peace.</p>
-    </article>
-    <article class="mirror-card reveal">
-      <p class="mirror-num">THIRD MIRROR</p>
-      <div class="mirror-icon">✦</div>
-      <h3 class="mirror-name">Ascendant</h3>
-      <p class="mirror-name-ja">ASC / アセンダント</p>
-      <p class="mirror-desc">Your gateway to the world and first impression. The "Outer Self" perceived by others.</p>
-    </article>
-  </div>
-</section>
-
-<section class="features">
-  <div class="features-inner">
-    <p class="section-label reveal">Features</p>
-    <h2 class="section-title reveal">Explore Your Destiny</h2>
-    <div class="feature-list">
-      <div class="feature-item reveal">
-        <div class="feature-dot"></div>
-        <div>
-          <h3>Deep Self-Discovery</h3>
-          <p>Integrative analysis of your Sun, Moon, and Ascendant to map your soul's blueprint.</p>
-        </div>
-      </div>
-      <div class="feature-item reveal">
-        <div class="feature-dot"></div>
-        <div>
-          <h3>Soul Resonance Analysis</h3>
-          <p>Visualizing the resonance score of two souls across six multi-dimensional factors.</p>
-        </div>
-      </div>
-      <div class="feature-item reveal">
-        <div class="feature-dot"></div>
-        <div>
-          <h3>Compatibility Insights</h3>
-          <p>Understand the celestial dialogue between partners through the lens of psychology and astronomy.</p>
-        </div>
-      </div>
-      <div class="feature-item reveal">
-        <div class="feature-dot"></div>
-        <div>
-          <h3>Global Location Support</h3>
-          <p>High-precision calculations based on birth time and coordinates from major cities worldwide.</p>
-        </div>
-      </div>
-      <div class="feature-item reveal">
-        <div class="feature-dot"></div>
-        <div>
-          <h3>Multilingual Support</h3>
-          <p>Available in English, Spanish, and Japanese. Listen to the stars in your native tongue.</p>
-        </div>
-      </div>
-      <div class="feature-item reveal">
-        <div class="feature-dot"></div>
-        <div>
-          <h3>Free to Start</h3>
-          <p>Core readings are free. Deep insights and Ascendant reports are unlocked via rewarded access.</p>
-        </div>
-      </div>
+    <div class="mirror-card">
+      <h3>第一の鑑：太陽星座</h3>
+      <span class="en">1st Mirror: The Sun Sign</span>
+      <p>あなたの「意志」と「目的」。世界に対してあなたがどのように輝こうとするかを映し出します。</p>
+      <p style="margin-top:10px; font-size:12px; font-style:italic;">Reflects your core consciousness and life purpose.</p>
     </div>
-  </div>
-</section>
-
-<section class="compat">
-  <div class="gold-line reveal"></div>
-  <p class="section-label reveal">Resonance</p>
-  <h2 class="section-title reveal">Soul Compatibility</h2>
-  <p class="reveal" style="color:var(--white-dim);font-size:14px;line-height:2;max-width:520px;margin:0 auto;">
-    A cross-analysis of the six fundamental elements. Reflecting the harmony between two souls in both numbers and words.
-  </p>
-  <div class="compat-card reveal">
-    <p class="compat-score">71%</p>
-    <p class="compat-label">SOUL RESONANCE · ELEVATING EACH OTHER</p>
-    <div class="compat-bars">
-      <div class="bar-row">
-        <span class="bar-label">☀️ Sun Harmony</span>
-        <div class="bar-track"><div class="bar-fill" style="width:71%; animation-delay:.1s"></div></div>
-        <span class="bar-val">71%</span>
-      </div>
-      <div class="bar-row">
-        <span class="bar-label">🌙 Moon Resonance</span>
-        <div class="bar-track"><div class="bar-fill" style="animation-delay:.3s; width:67%"></div></div>
-        <span class="bar-val">67%</span>
-      </div>
-      <div class="bar-row">
-        <span class="bar-label">✦ Elemental Affinity</span>
-        <div class="bar-track"><div class="bar-fill" style="animation-delay:.5s; width:63%"></div></div>
-        <span class="bar-val">63%</span>
-      </div>
+    <div class="mirror-card">
+      <h3>第二の鑑：月星座</h3>
+      <span class="en">2nd Mirror: The Moon Sign</span>
+      <p>あなたの「無意識」と「感情」。プライベートな自分と、心の安らぎの場所を映し出します。</p>
+      <p style="margin-top:10px; font-size:12px; font-style:italic;">Reflects your subconscious self and emotional patterns.</p>
     </div>
-  </div>
-</section>
-
-<section class="cta-bottom">
-  <p class="section-label reveal">Get Started</p>
-  <h2 class="hero-title reveal" style="opacity:1;animation:none;font-size:clamp(32px,7vw,64px);">Reflect Your <span>Soul</span></h2>
-  <p class="motto reveal">"The stars incline, they do not bind."</p>
-  <div class="reveal" style="display:flex;flex-direction:column;align-items:center;gap:12px;">
-    <a href="https://astralmirrorstudio.github.io/the-third-mirror/app.html" target="_blank" class="cta-btn" style="background:linear-gradient(135deg,#1A0C2E,#0D0820);border:1.5px solid rgba(201,168,76,.8);color:#C9A84C;">🔮 Discover Your Mirrors Now</a>
-    <a href="https://play.google.com/store/apps/details?id=com.t3m.thethirdmirror" target="_blank" class="cta-btn" style="background:#000;border-color:#fff;"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" style="height:40px;margin:-6px 0;"></a>
+    <div class="mirror-card">
+      <h3>第三の鑑：アセンダント</h3>
+      <span class="en">3rd Mirror: The Ascendant</span>
+      <p>あなたの「ペルソナ」と「入り口」。他人があなたをどう見るか、この世への窓口を映し出します。</p>
+      <p style="margin-top:10px; font-size:12px; font-style:italic;">Reflects your social mask and how you perceive the world.</p>
+    </div>
   </div>
 </section>
 
 <footer>
-  <nav class="footer-links">
-    <a href="/privacy.html">Privacy Policy</a>
-    <a href="/terms.html">Terms of Service</a>
-    <a href="mailto:contact@thethirdmirror.app">Contact</a>
-  </nav>
-  <p>© 2025 THE THIRD MIRROR - Celestial Psychology. All rights reserved.</p>
+  <p class="footer-note">Supported Languages: English / Español / 日本語</p>
+  <p style="font-size:11px; opacity:0.3;">© 2026 THE THIRD MIRROR</p>
 </footer>
 
 <script>
@@ -320,12 +167,9 @@
   const ctx = canvas.getContext('2d');
   let stars = [];
   function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-  function initStars() { stars = Array.from({ length: 160 }, () => ({ x: Math.random(), y: Math.random(), r: Math.random() * 1.5 + .3, o: Math.random() * .7 + .2, speed: Math.random() * 1.5 + 1, phase: Math.random() * Math.PI * 2 })); }
-  function drawStars(t) { ctx.clearRect(0, 0, canvas.width, canvas.height); stars.forEach(s => { const opacity = s.o * (.5 + .5 * Math.sin(t / (s.speed * 800) + s.phase)); ctx.beginPath(); ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(255,255,255,${opacity})`; ctx.fill(); }); requestAnimationFrame(drawStars); }
-  resize(); initStars(); requestAnimationFrame(drawStars); window.addEventListener('resize', resize);
-  const reveals = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } }); }, { threshold: .15, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(el => io.observe(el));
+  function init() { stars = Array.from({length:150}, () => ({x:Math.random(), y:Math.random(), r:Math.random()*1.2, o:Math.random()})); }
+  function draw(t) { ctx.clearRect(0,0,canvas.width,canvas.height); stars.forEach(s=>{ ctx.beginPath(); ctx.arc(s.x*canvas.width, s.y*canvas.height, s.r, 0, Math.PI*2); ctx.fillStyle=`rgba(255,255,255,${s.o * (0.5 + 0.5 * Math.sin(t/1000))})`; ctx.fill(); }); requestAnimationFrame(draw); }
+  window.addEventListener('resize', resize); resize(); init(); draw(0);
 </script>
 </body>
 </html>
